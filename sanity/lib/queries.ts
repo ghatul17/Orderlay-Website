@@ -34,14 +34,14 @@ const postCardFragment = groq`
 
 // A. All posts — sorted by publishedAt desc
 export const allPostsQuery = groq`
-  *[_type == "post" && defined(publishedAt)] | order(publishedAt desc) {
+  *[_type == "post" && defined(publishedAt) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
     ${postCardFragment}
   }
 `
 
 // B. Single post by slug
 export const postBySlugQuery = groq`
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
     ${postCardFragment},
     body,
     seo {
@@ -55,14 +55,14 @@ export const postBySlugQuery = groq`
 
 // C. Featured posts
 export const featuredPostsQuery = groq`
-  *[_type == "post" && featured == true && defined(publishedAt)] | order(publishedAt desc) [0..2] {
+  *[_type == "post" && featured == true && defined(publishedAt) && !(_id in path("drafts.**"))] | order(publishedAt desc) [0..2] {
     ${postCardFragment}
   }
 `
 
 // D. Posts by category slug
 export const postsByCategoryQuery = groq`
-  *[_type == "post" && defined(publishedAt) && $categorySlug in categories[]->slug.current]
+  *[_type == "post" && defined(publishedAt) && !(_id in path("drafts.**")) && $categorySlug in categories[]->slug.current]
   | order(publishedAt desc) {
     ${postCardFragment}
   }
@@ -70,7 +70,7 @@ export const postsByCategoryQuery = groq`
 
 // E. Most popular posts (by views)
 export const mostPopularPostsQuery = groq`
-  *[_type == "post" && defined(publishedAt)] | order(views desc) [0..4] {
+  *[_type == "post" && defined(publishedAt) && !(_id in path("drafts.**"))] | order(views desc) [0..4] {
     ${postCardFragment}
   }
 `
@@ -80,6 +80,7 @@ export const relatedPostsQuery = groq`
   *[
     _type == "post" &&
     defined(publishedAt) &&
+    !(_id in path("drafts.**")) &&
     _id != $currentId &&
     count((categories[]->slug.current)[@ in $categorySlugs]) > 0
   ] | order(publishedAt desc) [0..2] {
