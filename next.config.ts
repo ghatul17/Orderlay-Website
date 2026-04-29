@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Exclude Sanity Studio packages from client bundle — studio runs on sanity.io/manage
+  serverExternalPackages: ['sanity', '@sanity/vision'],
   env: {
     NEXT_PUBLIC_ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT,
   },

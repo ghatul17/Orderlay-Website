@@ -1,11 +1,11 @@
 import type { PortableTextBlock } from '@portabletext/types'
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import type { SanityImageSource } from '@sanity/image-url'
 
 export interface SanitySlug {
   current: string
 }
 
-export interface SanityImage extends SanityImageSource {
+export type SanityImage = SanityImageSource & {
   alt?: string
   caption?: string
 }
