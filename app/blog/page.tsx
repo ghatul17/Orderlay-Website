@@ -78,7 +78,7 @@ export default async function BlogPage({
                 Read Article →
               </Link>
             </div>
-            {heroPost.mainImage && (
+            {heroPost.mainImage && (heroPost.mainImage as any)?.asset && (
               <div className="relative w-full h-72 rounded-2xl overflow-hidden">
                 <Image
                   src={urlFor(heroPost.mainImage).width(700).height(400).url()}

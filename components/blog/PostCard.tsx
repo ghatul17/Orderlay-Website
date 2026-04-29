@@ -21,7 +21,7 @@ export function PostCard({ post }: { post: Post }) {
       href={`/blog/${post.slug.current}`}
       className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200"
     >
-      {post.mainImage && (
+      {post.mainImage && (post.mainImage as any)?.asset && (
         <div className="relative w-full h-48 overflow-hidden">
           <Image
             src={urlFor(post.mainImage).width(600).height(340).url()}
