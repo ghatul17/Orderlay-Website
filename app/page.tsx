@@ -9,6 +9,7 @@ import WhySection from "@/components/main/WhySection";
 import RoleWise from "@/components/main/RoleWise";
 import FaqSection from "@/components/main/Faqs";
 import ProductIntro from "@/components/main/ProductIntro";
+import BlogSection from "@/components/main/BlogSection";
 
 export const metadata: Metadata = {
   title: "Restaurant Management Software",
@@ -50,6 +51,9 @@ export default function Home() {
       {/* role wise feature section */}
       <RoleWise />
 
+
+      {/* Blog section */}
+      <BlogSection />
 
       {/* FAQS */}
       <FAQSchema faqs={RestaurantFaqsList} />

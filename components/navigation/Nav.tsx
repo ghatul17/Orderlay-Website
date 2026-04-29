@@ -66,7 +66,10 @@ const Navbar = () => {
               <Link href={['/','/restaurant'].includes(pathname)?`${pathname}#community` :'/#community'} className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-inter">
                 Community
               </Link>
-              
+              <Link href="/blog" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-inter">
+                Blog
+              </Link>
+
               <Link
                 href={['/','/restaurant'].includes(pathname) ? `${pathname}#join` : '/#join'}
                 className="flex w-[156px] px-[18px] py-[9px] justify-center items-center gap-[5px] rounded-[5px] 
@@ -133,6 +136,13 @@ const Navbar = () => {
                     className="block text-xl  sm:text-base font-medium text-[#1E293B]"
                   >
                     Community
+                  </Link>
+                  <Link
+                    onClick={() => setIsMenuOpen(false)}
+                    href="/blog"
+                    className="block text-xl  sm:text-base font-medium text-[#1E293B]"
+                  >
+                    Blog
                   </Link>
                   <div className="">
                     <button
