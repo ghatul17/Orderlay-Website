@@ -29,7 +29,6 @@ import { Textarea } from "../ui/textarea"
 import TickIcon from "../svgs/TickIcon"
 import axios from 'axios';
 import Axios from "../config/Axios"
-import { count, error } from "console"
 import { SelectLabel } from "@radix-ui/react-select"
 import Image from "next/image"
 
@@ -89,7 +88,7 @@ function ContactForm() {
       })
       data = {
         ...data,
-        phone: `${countryCode}${data.phone}`
+        phone: (countryCode?.startsWith('+') ? countryCode.slice(1) : countryCode) + data.phone
       }
 
       console.log(data)
@@ -97,7 +96,9 @@ function ContactForm() {
     },
     onSuccess: () => {
       toast.success('Your Form has been recorded successfully.')
-      form.reset({ email: '' })
+      form.reset()
+      setShowToast(true)
+      setTimeout(() => setShowToast(false), 5000)
     },
     onError: (e) => {
       toast.error('Error occured! please try again later.')
@@ -247,7 +248,7 @@ function ContactForm() {
                 <FormItem className="w-[100%] -ml-2 md:-ml-6">
                   <FormLabel className=''>&nbsp;</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="+97********" {...field} />
+                    <Input type="tel" placeholder="Enter phone number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
