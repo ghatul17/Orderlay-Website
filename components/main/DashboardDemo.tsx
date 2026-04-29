@@ -5,8 +5,8 @@ import DashboardDemoItem from '@/components/DashboardDemoItem';
 
 function DashboardDemo() {
     return (
-        <section className="w-full py-[24px] lg:pb-32">
-            <div className="container flex flex-wrap justify-evenly gap-[15px] md:gap-5">
+        <section className="w-full py-8 md:py-16">
+            <div className="container flex flex-wrap justify-evenly gap-6">
                 <DashboardDemoItem
                     tag="Dashboard"
                     title="Summarize the sales performance for the reporting period."

@@ -15,23 +15,19 @@ export interface headingProps{
    supporrtHeading2?:string
 }
 export function Heading({mainHeading, supporrtHeading1, supporrtHeading2}:headingProps){
- return <div className="flex flex-col md:items-center justify-center gap-2 sm:gap-3"
-      >
-        <h2
-         className="font-jakarta text-2xl text-left md:text-center sm:text-[28px] md:text-[30px]  lg:text-[64px] text-[#1F2937] font-bold leading-[26px] xs:leading-[25px] sm:leading-[30px] md:leading-[40px] lg:leading-[89.6px] capitalize"
-        >{mainHeading}</h2>
-        <p
-         className="text-[#557087] text-left md:text-center font-normal font-titillium text-[14px]  lg:text-2xl leading-[22px] lg:leading-[38px] mb-10 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24"
-        >
-          {supporrtHeading1}
-          <br className='hidden sm:flex' />
-          {supporrtHeading2}</p>
+ return <div className="flex flex-col md:items-center justify-center gap-3 mb-12 lg:mb-16">
+        <h2 className="font-jakarta text-[28px] md:text-[32px] lg:text-[36px] text-[#1F2937] font-semibold leading-[1.2] tracking-[-0.4px] text-left md:text-center capitalize">
+          {mainHeading}
+        </h2>
+        <p className="text-[#557087] text-left md:text-center font-normal font-jakarta text-[16px] leading-[1.6] max-w-[600px]">
+          {supporrtHeading1} {supporrtHeading2}
+        </p>
       </div>
 }
 
 function WhySection() {
   return (
-    <section className="w-full bg-[#FAF9F7] py-[40px] sm:py-[60px] md:py-[80px]">
+    <section className="w-full bg-[#FAF9F7] py-8 md:py-16">
     <div className="container">
       {/* initial question */}
          <Heading
@@ -41,7 +37,7 @@ function WhySection() {
     />
 
       {/*  Why */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xs:gap-8 md:gap-10 lg:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Dashboard */}
         <Why
           isCol={false}

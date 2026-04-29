@@ -19,10 +19,10 @@ const config: Config = {
   	},
   	extend: {
   		colors: {
-			circle:'rgba(255, 255, 255, 0.12)',
+  			circle: 'rgba(255, 255, 255, 0.12)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
-  			primary:'#F97316',
+  			primary: '#F97316',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -59,10 +59,25 @@ const config: Config = {
   			}
   		},
   		fontFamily: {
-  			jakarta: ['Plus Jakarta Sans', 'sans-serif'],
-  			inter: ["Inter", "sans-serif"],
-  			redex: ["Readex Pro"],
-			titillium:["Titillium Web", 'sans-serif']
+  			jakarta: [
+  				'Plus Jakarta Sans',
+  				'sans-serif'
+  			],
+  			inter: [
+  				'Inter',
+  				'sans-serif'
+  			],
+  			grotesk: [
+  				'Space Grotesk',
+  				'sans-serif'
+  			],
+  			redex: [
+  				'Readex Pro'
+  			],
+  			titillium: [
+  				'Titillium Web',
+  				'sans-serif'
+  			]
   		},
   		fontVariantNumeric: {
   			'lining-tabular': 'lining-nums tabular-nums'
@@ -71,6 +86,28 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },

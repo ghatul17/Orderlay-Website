@@ -47,10 +47,10 @@ const components: PortableTextComponents = {
   },
   block: {
     h1: ({ children }) => (
-      <h1 className="text-4xl font-bold mt-10 mb-4 text-gray-900">{children}</h1>
+      <h1 className="text-4xl font-semibold font-jakarta mt-10 mb-4 text-gray-900 leading-[1.2]">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-3xl font-bold mt-8 mb-3 text-gray-900">{children}</h2>
+      <h2 className="text-3xl font-semibold font-jakarta mt-8 mb-3 text-gray-900 leading-[1.25]">{children}</h2>
     ),
     h3: ({ children }) => (
       <h3 className="text-2xl font-semibold mt-6 mb-2 text-gray-900">{children}</h3>

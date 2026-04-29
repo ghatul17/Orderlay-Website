@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/sanity/lib/image'
 import type { Post } from '@/sanity/lib/types'
+import { Separator } from '@/components/ui/separator'
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', {
@@ -24,7 +25,7 @@ function BentoHero({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${post.slug.current}`}
-      className="group col-span-2 bg-white rounded-3xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col"
+      className="group col-span-2 bg-white rounded-xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col"
     >
       {hasImage && (
         <div className="relative w-full h-56 overflow-hidden">
@@ -39,13 +40,13 @@ function BentoHero({ post }: { post: Post }) {
         </div>
       )}
       {!hasImage && (
-        <div className="w-full h-44 bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center text-5xl">
-          📝
+        <div className="w-full h-44 bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-orange-300" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
         </div>
       )}
       <div className="p-7 flex flex-col gap-2">
         <CategoryLabel post={post} />
-        <h2 className="text-xl font-bold text-gray-900 leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">
+        <h2 className="text-xl font-semibold font-jakarta text-gray-900 leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">
           {post.title}
         </h2>
         {post.excerpt && (
@@ -68,7 +69,7 @@ function BentoCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${post.slug.current}`}
-      className="group bg-white rounded-3xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col"
+      className="group bg-white rounded-xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col"
     >
       {hasImage && (
         <div className="relative w-full h-44 overflow-hidden">
@@ -83,17 +84,20 @@ function BentoCard({ post }: { post: Post }) {
       )}
       <div className="p-6 flex flex-col gap-2 flex-1">
         <CategoryLabel post={post} />
-        <h2 className="font-bold text-gray-900 leading-snug group-hover:text-orange-500 transition-colors line-clamp-3 flex-1">
+        <h2 className="font-semibold font-jakarta text-gray-900 leading-snug group-hover:text-orange-500 transition-colors line-clamp-3 flex-1">
           {post.title}
         </h2>
         {post.excerpt && (
           <p className="text-sm text-gray-500 line-clamp-2">{post.excerpt}</p>
         )}
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-auto">
-          <span className="text-xs text-gray-400">{formatDate(post.publishedAt)}</span>
-          {post.readingTime && (
-            <span className="text-xs text-gray-400">{post.readingTime} min read</span>
-          )}
+        <div className="mt-auto">
+          <Separator className="mb-3" />
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400">{formatDate(post.publishedAt)}</span>
+            {post.readingTime && (
+              <span className="text-xs text-gray-400">{post.readingTime} min read</span>
+            )}
+          </div>
         </div>
       </div>
     </Link>
@@ -106,7 +110,7 @@ function BentoWide({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${post.slug.current}`}
-      className="group col-span-2 bg-white rounded-3xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex"
+      className="group col-span-2 bg-white rounded-xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex"
     >
       {hasImage && (
         <div className="relative w-56 shrink-0 overflow-hidden">
@@ -121,7 +125,7 @@ function BentoWide({ post }: { post: Post }) {
       )}
       <div className="flex flex-col justify-center p-7 gap-2 flex-1">
         <CategoryLabel post={post} />
-        <h2 className="font-bold text-gray-900 text-xl leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">
+        <h2 className="font-semibold font-jakarta text-gray-900 text-xl leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">
           {post.title}
         </h2>
         {post.excerpt && (
@@ -142,7 +146,7 @@ export function BentoGrid({ posts }: { posts: Post[] }) {
   const [first, ...rest] = posts
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-4">
       {/* Row 1: hero (2col) + card (1col) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <BentoHero post={first} />

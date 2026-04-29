@@ -27,10 +27,10 @@ function page() {
       <div className="flex flex-col md:items-center justify-center gap-2 sm:gap-3 mb-[30px] md:mb-[40px] lg:mb-[45px] xl:mb-[50px] 2xl:mb-[55px] 3xl:mb-[60px]"
       >
         <h1
-         className="font-jakarta  text-left md:text-center text-[30px] md:text-[40px] lg:text-[45px] xl:text-[50px] 2xl:text-[55px]  text-[#374151] font-bold leading-[120%]  capitalize"
+         className="font-jakarta text-left md:text-center text-[30px] md:text-[40px] lg:text-[45px] xl:text-[48px] text-[#374151] font-semibold leading-[1.2] capitalize"
         >Contact Us</h1>
         <p
-         className="lg:px-2 text-gray-800 lg:text-[#557087] text-left md:text-center font-normal font-jakarta text-[14px]  md:text-2xl leading-[160%] mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14 mt-2 lg:mt-3"
+         className="lg:px-2 text-gray-800 lg:text-[#557087] text-left md:text-center font-normal font-jakarta text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] leading-[1.6] mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14 mt-2 lg:mt-3"
         >Contact us for support, solutions, and advice to help grow your restaurant and simplify your operations.</p>
       </div>
       {/*  flex box  */}

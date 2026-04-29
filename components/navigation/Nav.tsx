@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -8,8 +7,10 @@ import { usePathname, useRouter } from 'next/navigation';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [communityOpen, setCommunityOpen] = useState(false);
   const router = useRouter()
   const pathname = usePathname()
+  const faqHref = ['/', '/restaurant'].includes(pathname) ? `${pathname}#community` : '/#community'
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -55,26 +56,53 @@ const Navbar = () => {
             <div className="hidden sm:flex sm:space-x-8 lg:space-x-12 items-center">
               {
 
-                pathname === '/restaurant-goer' ? <Link href="/" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-inter">
+                pathname === '/restaurant-goer' ? <Link href="/" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200">
                   For Restaurant
                 </Link>
                   :
-                  <Link href="/restaurant-goer" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-inter">
+                  <Link href="/restaurant-goer" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200">
                      Restaurant Goer
                   </Link>
               }
-              <Link href={['/','/restaurant'].includes(pathname)?`${pathname}#community` :'/#community'} className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-inter">
-                Community
-              </Link>
-              <Link href="/blog" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-inter">
-                Blog
-              </Link>
+              <div
+                className="relative"
+                onMouseEnter={() => setCommunityOpen(true)}
+                onMouseLeave={() => setCommunityOpen(false)}
+              >
+                <button
+                  type="button"
+                  className="flex items-center gap-1 text-[#1E293B] font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200 cursor-pointer"
+                  aria-expanded={communityOpen}
+                  aria-haspopup="true"
+                >
+                  Community
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${communityOpen ? 'rotate-180' : ''}`}>
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+                {communityOpen && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20">
+                    <div className="bg-white rounded-xl shadow-md border border-gray-100 p-2 min-w-[180px] flex flex-col">
+                      <Link
+                        href="/blog"
+                        className="px-4 py-3 rounded-lg text-[#1E293B] font-medium text-[14px] font-jakarta hover:bg-gray-50 hover:text-primary transition-colors duration-200"
+                      >
+                        Blog
+                      </Link>
+                      <Link
+                        href={faqHref}
+                        className="px-4 py-3 rounded-lg text-[#1E293B] font-medium text-[14px] font-jakarta hover:bg-gray-50 hover:text-primary transition-colors duration-200"
+                      >
+                        FAQ
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <Link
                 href={['/','/restaurant'].includes(pathname) ? `${pathname}#join` : '/#join'}
-                className="flex w-[156px] px-[18px] py-[9px] justify-center items-center gap-[5px] rounded-[5px] 
-             bg-[#F97316] text-[#FEFEFE] font-medium text-[14px] font-roboto 
-             hover:scale-105 transition-transform"
+                className="flex h-10 px-5 justify-center items-center rounded-xl bg-primary text-white font-medium text-[14px] font-jakarta hover:opacity-90 transition-opacity duration-200"
               >
                 Join Us
               </Link>
@@ -119,35 +147,42 @@ const Navbar = () => {
                   {
 
                     pathname === '/restaurant-goer' ? <Link href="/"
-                      className="block text-xl  sm:text-base font-medium text-[#1E293B] "
+                      className="block text-xl sm:text-base font-medium text-[#1E293B] hover:text-primary transition-colors duration-200"
                     >
-                      For Restaurant 
+                      For Restaurant
                     </Link>
                       :
                       <Link href="/restaurant-goer"
-                        className="block text-xl  sm:text-base font-medium text-[#1E293B] "
+                        className="block text-xl sm:text-base font-medium text-[#1E293B] hover:text-primary transition-colors duration-200"
                       >
                          Restaurant Goer
                       </Link>
                   }
-                  <Link
-                    onClick={() => setIsMenuOpen(false)}
-                    href="/#community"
-                    className="block text-xl  sm:text-base font-medium text-[#1E293B]"
-                  >
-                    Community
-                  </Link>
-                  <Link
-                    onClick={() => setIsMenuOpen(false)}
-                    href="/blog"
-                    className="block text-xl  sm:text-base font-medium text-[#1E293B]"
-                  >
-                    Blog
-                  </Link>
+                  <div className="flex flex-col gap-3">
+                    <span className="text-xl sm:text-base font-medium text-[#1E293B]">
+                      Community
+                    </span>
+                    <div className="flex flex-col gap-3 pl-4 border-l-2 border-gray-100">
+                      <Link
+                        onClick={() => setIsMenuOpen(false)}
+                        href="/blog"
+                        className="block text-base font-medium text-[#557087] hover:text-primary transition-colors duration-200"
+                      >
+                        Blog
+                      </Link>
+                      <Link
+                        onClick={() => setIsMenuOpen(false)}
+                        href={faqHref}
+                        className="block text-base font-medium text-[#557087] hover:text-primary transition-colors duration-200"
+                      >
+                        FAQ
+                      </Link>
+                    </div>
+                  </div>
                   <div className="">
                     <button
                       onClick={() => { setIsMenuOpen(false), router.push('/#join') }}
-                      className="w-[200px]  sm:max-w-[240px] p-1 sm:p-3 capitalize bg-primary text-white font-medium rounded-[4px] text-sm sm:text-lg border border-primary"
+                      className="w-full max-w-[200px] h-12 capitalize bg-primary text-white font-medium rounded-xl text-[14px] font-jakarta hover:opacity-90 transition-opacity duration-200 cursor-pointer"
                     >
                       Join Us
                     </button>

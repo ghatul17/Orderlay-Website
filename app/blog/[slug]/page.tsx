@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { sanityFetch } from '@/sanity/lib/client'
+import { Badge } from '@/components/ui/badge'
 import {
   postBySlugQuery,
   allPostSlugsQuery,
@@ -84,21 +85,19 @@ export default async function BlogPostPage({ params }: PageProps) {
     <main className="min-h-screen bg-gray-50">
       {/* Article Header */}
       <header className="bg-white border-b border-gray-100">
-        <div className="max-w-3xl mx-auto px-4 py-14">
-          <div className="flex flex-wrap gap-2 mb-4">
+        <div className="max-w-[760px] mx-auto px-6 py-12 md:py-16">
+          <div className="flex flex-wrap gap-2 mb-6">
             {post.categories?.map((cat) => (
-              <Link
-                key={cat._id}
-                href={`/blog?category=${cat.slug.current}`}
-                className="text-xs font-medium px-3 py-1 rounded-full bg-orange-100 text-orange-700 hover:bg-orange-200 transition-colors"
-              >
-                {cat.title}
+              <Link key={cat._id} href={`/blog?category=${cat.slug.current}`}>
+                <Badge variant="secondary" className="hover:bg-orange-100 hover:text-orange-700 transition-colors duration-200 cursor-pointer">
+                  {cat.title}
+                </Badge>
               </Link>
             ))}
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-5">{post.title}</h1>
+          <h1 className="text-[32px] md:text-[40px] lg:text-[48px] font-semibold font-jakarta text-gray-900 leading-[1.2] tracking-[-0.5px] mb-6">{post.title}</h1>
           {post.excerpt && (
-            <p className="text-xl text-gray-500 leading-relaxed mb-6">{post.excerpt}</p>
+            <p className="text-[18px] font-jakarta text-gray-500 leading-[1.6] mb-8">{post.excerpt}</p>
           )}
           <div className="flex items-center gap-4">
             {post.author?.image && (post.author.image as any)?.asset && (
@@ -132,8 +131,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       {/* Main Image */}
       {post.mainImage && (post.mainImage as any)?.asset && (
-        <div className="max-w-4xl mx-auto px-4 -mt-1 pt-8">
-          <div className="relative w-full h-80 md:h-[460px] rounded-2xl overflow-hidden">
+        <div className="max-w-[900px] mx-auto px-6 pt-8">
+          <div className="relative w-full h-80 md:h-[460px] rounded-xl overflow-hidden">
             <Image
               src={urlFor(post.mainImage).width(1000).height(560).url()}
               alt={post.mainImage.alt ?? post.title}
@@ -147,14 +146,14 @@ export default async function BlogPostPage({ params }: PageProps) {
       )}
 
       {/* Content + Sidebar */}
-      <div className="max-w-6xl mx-auto px-4 py-14 grid lg:grid-cols-[1fr_300px] gap-14">
+      <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16 grid lg:grid-cols-[1fr_300px] gap-12">
         {/* Body */}
         <article>
           {post.body && <PortableTextRenderer value={post.body} />}
 
           {/* Author Bio */}
           {post.author?.bio && (
-            <div className="mt-14 p-6 bg-white rounded-2xl border border-gray-100 flex gap-5 items-start">
+            <div className="mt-14 p-6 bg-white rounded-xl border border-gray-100 flex gap-5 items-start">
               {post.author.image && (post.author.image as any)?.asset && (
                 <Image
                   src={urlFor(post.author.image).width(60).height(60).url()}
@@ -176,8 +175,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 
           {/* Related Posts */}
           {related.length > 0 && (
-            <section className="mt-14">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Articles</h2>
+            <section className="mt-16">
+              <h2 className="text-[24px] md:text-[28px] font-semibold font-jakarta text-gray-900 leading-[1.3] mb-6">Related Articles</h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 {related.map((p) => (
                   <PostCard key={p._id} post={p} />
@@ -190,7 +189,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         {/* Sidebar */}
         <aside className="flex flex-col gap-8">
           {/* CTA */}
-          <div className="bg-orange-500 rounded-2xl p-6 text-white text-center sticky top-6">
+          <div className="bg-orange-500 rounded-xl p-6 text-white text-center sticky top-6">
             <h3 className="text-lg font-bold mb-2">Grow your restaurant</h3>
             <p className="text-orange-100 text-sm mb-5">
               See how Orderlay helps restaurants increase orders and cut costs.

@@ -3,9 +3,9 @@ import RoleWiseAd from '../RoleWiseAd'
 
 function RoleWise() {
   return (
-    <section className="w-full py-[120px]">
-      <div className="container flex flex-col gap-32"
-      >
+    <section className="w-full py-8 md:py-16">
+      <div className="container flex flex-col gap-12 md:gap-16">
+
 
             {/* for restaurant owners */}
             <RoleWiseAd
