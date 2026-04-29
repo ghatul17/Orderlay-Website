@@ -51,6 +51,7 @@ const formSchema = z.object({
   phone: z
     .string({ required_error: "Phone number is required." })
     .min(7, { message: "Phone number must be at least 7 digits." })
+    .max(15, { message: "Phone number must be at most 15 digits." })
     .regex(/^\d+$/, { message: "Phone number must contain only digits." }),
   countryCode: z.string({ required_error: "Choose code." }),
   message: z
@@ -88,7 +89,7 @@ function ContactForm() {
       })
       data = {
         ...data,
-        phone: countryCode?.slice(1, countryCode?.length) + data.phone
+        phone: `${countryCode}${data.phone}`
       }
 
       console.log(data)
