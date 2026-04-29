@@ -50,7 +50,7 @@ const formSchema = z.object({
     .or(z.literal("").optional()), // Allows valid email or empty string // Optional email
   phone: z
     .string({ required_error: "Phone number is required." })
-    .length(10, { message: "Phone number must be exactly 10 digits." })
+    .min(7, { message: "Phone number must be at least 7 digits." })
     .regex(/^\d+$/, { message: "Phone number must contain only digits." }),
   countryCode: z.string({ required_error: "Choose code." }),
   message: z
@@ -246,7 +246,7 @@ function ContactForm() {
                 <FormItem className="w-[100%] -ml-2 md:-ml-6">
                   <FormLabel className=''>&nbsp;</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="97********" {...field} />
+                    <Input type="tel" placeholder="+97********" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
