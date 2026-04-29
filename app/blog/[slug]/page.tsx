@@ -34,9 +34,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const metaTitle = post.seo?.metaTitle ?? post.title
   const metaDescription = post.seo?.metaDescription ?? post.excerpt ?? ''
-  const ogImageUrl = post.seo?.ogImage
+  const ogImageUrl = post.seo?.ogImage && (post.seo.ogImage as any)?.asset
     ? urlFor(post.seo.ogImage).width(1200).height(630).url()
-    : post.mainImage
+    : post.mainImage && (post.mainImage as any)?.asset
       ? urlFor(post.mainImage).width(1200).height(630).url()
       : undefined
 
@@ -101,7 +101,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <p className="text-xl text-gray-500 leading-relaxed mb-6">{post.excerpt}</p>
           )}
           <div className="flex items-center gap-4">
-            {post.author?.image && (
+            {post.author?.image && (post.author.image as any)?.asset && (
               <Image
                 src={urlFor(post.author.image).width(44).height(44).url()}
                 alt={post.author.name}
@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       </header>
 
       {/* Main Image */}
-      {post.mainImage && (
+      {post.mainImage && (post.mainImage as any)?.asset && (
         <div className="max-w-4xl mx-auto px-4 -mt-1 pt-8">
           <div className="relative w-full h-80 md:h-[460px] rounded-2xl overflow-hidden">
             <Image
@@ -155,7 +155,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           {/* Author Bio */}
           {post.author?.bio && (
             <div className="mt-14 p-6 bg-white rounded-2xl border border-gray-100 flex gap-5 items-start">
-              {post.author.image && (
+              {post.author.image && (post.author.image as any)?.asset && (
                 <Image
                   src={urlFor(post.author.image).width(60).height(60).url()}
                   alt={post.author.name}
