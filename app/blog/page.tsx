@@ -34,7 +34,7 @@ export default async function BlogPage({
   ])
 
   return (
-    <main className="min-h-screen bg-[#f5f5f0]">
+    <main className="min-h-screen bg-[#f7f7f5]">
       {/* Header */}
       <div className="max-w-6xl mx-auto px-4 pt-14 pb-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
