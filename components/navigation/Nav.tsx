@@ -64,6 +64,10 @@ const Navbar = () => {
                      Restaurant Goer
                   </Link>
               }
+              <Link href="/refer-and-earn" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200">
+                Refer & Earn
+              </Link>
+
               <div
                 className="relative"
                 onMouseEnter={() => setCommunityOpen(true)}
@@ -158,6 +162,13 @@ const Navbar = () => {
                          Restaurant Goer
                       </Link>
                   }
+                  <Link
+                    onClick={() => setIsMenuOpen(false)}
+                    href="/refer-and-earn"
+                    className="block text-xl sm:text-base font-medium text-[#1E293B] hover:text-primary transition-colors duration-200"
+                  >
+                    Refer & Earn
+                  </Link>
                   <div className="flex flex-col gap-3">
                     <span className="text-xl sm:text-base font-medium text-[#1E293B]">
                       Community
