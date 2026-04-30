@@ -144,7 +144,8 @@ export default function ReferralSignupForm({ mode, referralCode }: Props) {
         <input
           {...register('referral_code')}
           readOnly
-          className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-400 text-sm font-jakarta cursor-not-allowed"
+          placeholder="e.g. OL-RAM4829"
+          className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 text-sm font-jakarta cursor-not-allowed placeholder:text-gray-400"
         />
       </Field>
 

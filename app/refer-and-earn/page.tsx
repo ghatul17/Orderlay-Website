@@ -23,7 +23,7 @@ export default async function ReferAndEarnPage({
   const params = await searchParams
   const refCode = typeof params?.ref === 'string' ? params.ref : ''
   const mode = refCode ? 'self_filled' : 'referrer_filled'
-  const resolvedCode = refCode || 'YOUR-CODE'
+  const resolvedCode = refCode || ''
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '')
 
   return (
