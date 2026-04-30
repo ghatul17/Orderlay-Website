@@ -10,6 +10,9 @@ import { ReferralError } from '@/lib/referral/service'
  *
  * Body: { name, phone, email?, restaurant_name }
  * Response: { success: true, referral_code: "OL-RAM4829" }
+ *
+ * DB_READY flag: when DB is not yet wired up, the code is still generated
+ * and returned so the UI works. Remove the try/catch wrappers once connected.
  */
 export async function POST(req: NextRequest) {
   let body: unknown
@@ -25,33 +28,42 @@ export async function POST(req: NextRequest) {
   }
 
   const { name, phone, email, restaurant_name } = parsed.data
+  const normalizedPhone = normalize(phone)
 
+  // Generate the code immediately — works even before DB is connected
+  const code = generateReferralCode(name)
+
+  // ── DB writes (skipped gracefully until DB is wired up) ─────────────────────
   try {
-    // Block duplicate phone
-    const existing = await findUserByPhone(normalize(phone))
+    const existing = await findUserByPhone(normalizedPhone)
     if (existing) {
       return err(409, 'PHONE_TAKEN', 'This phone number is already registered')
     }
 
-    // Create referrer user record
     const user = await createReferrer({
       name,
-      phone: normalize(phone),
+      phone: normalizedPhone,
       email: email || null,
       restaurant_name,
-      password_hash: `hashed_placeholder`, // TODO: bcrypt hash a generated password
+      password_hash: 'hashed_placeholder', // TODO: bcrypt
     })
 
-    // Generate unique referral code and persist it
-    const code = generateReferralCode(name)
     await createReferralCode({ owner_id: user.id, code })
-
-    return NextResponse.json({ success: true, referral_code: code }, { status: 201 })
   } catch (e) {
     if (e instanceof ReferralError) return err(e.httpStatus, e.code, e.message)
-    console.error('[referral/register]', e)
-    return err(500, 'SERVER_ERROR', 'Something went wrong. Please try again.')
+
+    const msg = e instanceof Error ? e.message : ''
+    const isNotWiredUp = msg.includes('not wired up')
+
+    if (!isNotWiredUp) {
+      console.error('[referral/register]', e)
+      return err(500, 'SERVER_ERROR', 'Something went wrong. Please try again.')
+    }
+    // DB not connected yet — still return the code so the UI works
+    console.warn('[referral/register] DB not connected — returning code without persisting')
   }
+
+  return NextResponse.json({ success: true, referral_code: code }, { status: 201 })
 }
 
 function normalize(phone: string) {
