@@ -135,7 +135,7 @@ export default function ReferralSignupForm({ mode, referralCode }: Props) {
           ? 'Adding…'
           : mode === 'referrer_filled'
           ? 'Add Restaurant & Notify via WhatsApp'
-          : 'Create Account & Start Trial'}
+          : 'Claim 20% Off & Start Free Trial'}
       </button>
     </form>
   )
