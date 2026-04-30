@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import ReferralSignupForm from '@/components/refer-and-earn/ReferralSignupForm'
 import CopyButton from '@/components/refer-and-earn/CopyButton'
 
@@ -18,12 +19,13 @@ export const metadata: Metadata = {
  * To delete this entire feature: remove this file + /components/refer-and-earn/
  * + /lib/referral/ + /app/api/referral/ and the nav link in Nav.tsx
  */
-export default function ReferAndEarnPage({
+export default async function ReferAndEarnPage({
   searchParams,
 }: {
-  searchParams: Record<string, string | string[] | undefined>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
 }) {
-  const refCode = typeof searchParams?.ref === 'string' ? searchParams.ref : ''
+  const params = await searchParams
+  const refCode = typeof params?.ref === 'string' ? params.ref : ''
   const mode = refCode ? 'self_filled' : 'referrer_filled'
 
   // Placeholder referral code for Way 1 (replace with session value when auth is wired up)
@@ -46,6 +48,25 @@ export default function ReferAndEarnPage({
             Invite restaurants to Orderlay. Every referral that converts to a paid plan earns you
             20% commission — automatically, every cycle.
           </p>
+          <div className="flex flex-wrap gap-3 mt-6">
+            <Link
+              href={`/signup?ref=${resolvedCode}`}
+              className="inline-flex items-center gap-2 h-11 px-6 bg-primary text-white rounded-xl font-semibold text-sm font-jakarta hover:opacity-90 transition-opacity"
+            >
+              Sign Up with Referral
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+              </svg>
+            </Link>
+            <a
+              href={`https://wa.me/?text=Join%20Orderlay%3A%20orderlay.app%2Fsignup%3Fref%3D${resolvedCode}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 h-11 px-6 bg-white border border-gray-200 text-gray-700 rounded-xl font-semibold text-sm font-jakarta hover:border-primary hover:text-primary transition-colors"
+            >
+              Share Link
+            </a>
+          </div>
         </div>
 
         {/* ── Row 1: Stats bento ──────────────────────────────────────────── */}
