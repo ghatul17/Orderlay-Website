@@ -1,3 +1,5 @@
+import { SITE_URL, SUPPORT_EMAIL } from "@/constants/site";
+
 export function SoftwareApplicationSchema() {
   return (
     <script
@@ -16,7 +18,7 @@ export function SoftwareApplicationSchema() {
             price: "0",
             priceCurrency: "USD",
           },
-          url: "https://orderlay.com",
+          url: SITE_URL,
         }),
       }}
     />
@@ -32,8 +34,8 @@ export function OrganizationSchema() {
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Orderlay",
-          url: "https://orderlay.com",
-          logo: "https://orderlay.com/asset/logo.svg",
+          url: SITE_URL,
+          logo: `${SITE_URL}/asset/logo.svg`,
           sameAs: [
             "https://www.facebook.com/profile.php?id=61557919740911",
             "https://www.instagram.com/orderlay.app/",
@@ -42,9 +44,9 @@ export function OrganizationSchema() {
           contactPoint: {
             "@type": "ContactPoint",
             telephone: "+977-9801753818",
-            email: "hello@orderlay.app",
+            email: SUPPORT_EMAIL,
             contactType: "customer support",
-            url: "https://orderlay.com/contact-us",
+            url: `${SITE_URL}/contact-us`,
           },
         }),
       }}
@@ -71,6 +73,30 @@ export function FAQSchema({
               "@type": "Answer",
               text: f.answer,
             },
+          })),
+        }),
+      }}
+    />
+  );
+}
+
+export function BreadcrumbSchema({
+  items,
+}: {
+  items: { name: string; item: string }[];
+}) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: items.map((breadcrumb, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: breadcrumb.name,
+            item: `${SITE_URL}${breadcrumb.item}`,
           })),
         }),
       }}

@@ -10,10 +10,10 @@ import { ReactQueryProvider } from '@/reacr-query/QueryProvider'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
-
+import { BreadcrumbSchema } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: "Contact Orderlay — Restaurant Management Support",
+  title: { absolute: "Contact Orderlay — Restaurant Management Support" },
   description:
     "Get in touch with the Orderlay team. We're here to help you set up and grow your restaurant business.",
   alternates: { canonical: "/contact-us" },
@@ -22,6 +22,12 @@ export const metadata: Metadata = {
 function page() {
   return (
     <div className='w-full'>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '' },
+          { name: 'Contact Us', item: '/contact-us' },
+        ]}
+      />
        <div className="container  my-[41px] sm:my-[50px] md:my-[60px] lg:my-[70px] xl:my-[80px] 2xl:my-[100px] 3xl:my-[120px]">
       {/* initial question */}
       <div className="flex flex-col md:items-center justify-center gap-2 sm:gap-3 mb-[30px] md:mb-[40px] lg:mb-[45px] xl:mb-[50px] 2xl:mb-[55px] 3xl:mb-[60px]"
@@ -54,7 +60,7 @@ function page() {
                </Link>
              <Link target='_blank'  href={'https://www.instagram.com/orderlay.app/'} className='h-[24px] w-[24px]  lg:h-[30px] lg:w-[35px]'> <Insta/></Link>
              <Link target='_blank'  href={'https://www.tiktok.com/@orderlay'} className='h-[24px] w-[24px]  lg:h-[30px] lg:w-[35px]'> <Twitter/></Link>
-             <Link target='_blank'  href={'mailto:hello@orderlay.com'} className='h-[24px] w-[24px]  lg:h-[30px] lg:w-[35px]'> <Mail1/></Link>
+             <Link target='_blank'  href={'mailto:hello@orderlay.app'} className='h-[24px] w-[24px]  lg:h-[30px] lg:w-[35px]'> <Mail1/></Link>
             </div>
             <div className="absolute  aspect-square h-[210px] sm:h-[220px] md:h-[230px] lg:h-[250px] xl:h-[280px] 2xl:[310px] 3xl:h-[330px] bg-circle rounded-full right-0 bottom-0 translate-x-1/2 translate-y-1/2"></div>
 

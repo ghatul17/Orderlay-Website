@@ -1,248 +1,237 @@
 # Full SEO Audit Report — Orderlay
-**URL:** http://localhost:3000/  
-**Date:** 2026-04-29  
-**Auditor:** Claude Code SEO Audit  
-**Business Type:** SaaS / Mobile App — Restaurant Management & QR Ordering  
+
+**Site:** https://www.orderlay.app
+**Apex:** https://orderlay.app (307 → www)
+**Date:** 2026-04-29
+**Business Type:** SaaS / Mobile App — Restaurant Management & QR Ordering
+**Pages Crawled:** 8 (full inventory: `/`, `/blog`, `/blog/qr-ordering-restaurants-2026`, `/restaurant-goer`, `/contact-us`, `/privacy-policy`, `/terms-condition`, `/cookie-policy`)
 
 ---
 
-## SEO Health Score: 28 / 100
+## SEO Health Score: 45 / 100
 
-| Category | Score | Weight | Weighted |
-|----------|-------|--------|---------|
-| Technical SEO | 25/100 | 22% | 5.5 |
-| Content Quality | 40/100 | 23% | 9.2 |
-| On-Page SEO | 10/100 | 20% | 2.0 |
-| Schema / Structured Data | 0/100 | 10% | 0.0 |
-| Performance (CWV) | 45/100 | 10% | 4.5 |
-| AI Search Readiness | 30/100 | 10% | 3.0 |
-| Images | 40/100 | 5% | 2.0 |
-| **TOTAL** | | | **26.2 → 28/100** |
+| Category | Weight | Score | Weighted |
+|---|---|---|---|
+| Technical SEO | 22% | 25 | 5.5 |
+| Content Quality | 23% | 55 | 12.65 |
+| On-Page SEO | 20% | 35 | 7.0 |
+| Schema / Structured Data | 10% | 50 | 5.0 |
+| Performance (CWV — lab estimate) | 10% | 55 | 5.5 |
+| AI Search Readiness | 10% | 55 | 5.5 |
+| Images | 5% | 75 | 3.75 |
+| **Total** | **100%** | — | **~45** |
+
+The score is dragged down almost entirely by a single, repeated bug: the entire site declares the **wrong canonical domain (`orderlay.com`)**. Fix that one issue and the score jumps roughly 25–30 points overnight. Everything else is recoverable in a week.
 
 ---
 
-## Executive Summary
+## Top 5 Critical Issues
 
-Orderlay is a restaurant management SaaS with a QR ordering feature targeting both restaurant owners and diners. The website is a **Next.js App Router** project with 6 discoverable pages. The current SEO posture is **critically deficient** — every page is missing meta descriptions, Open Graph tags, canonical URLs, and structured data. Title tags are generic and under-optimized. Four SVG assets exceed 20 MB each, representing a severe performance liability. No sitemap or robots.txt exists.
+1. **Canonical, og:url, sitemap, robots, schema, llms.txt all point to `orderlay.com` — a domain you do not own.** It resolves to AWS CloudFront (`13.248.169.48`, `76.223.54.146`) for an unrelated host that returns 405 Method Not Allowed. Google will follow the canonical signal, fail to verify it, and treat your real site (`www.orderlay.app`) as a duplicate of nothing — effectively keeping you out of the index.
+2. **Sitemap is hand-coded with 6 stale URLs and excludes `/blog` and every blog post.** Search engines won't discover Sanity-driven content through the sitemap path.
+3. **Open Graph image returns 404** on both `orderlay.app` and `orderlay.com`. Every social/Slack/iMessage share will render a broken preview.
+4. **Vercel preview alias `website-v2-gules-nu.vercel.app` is publicly served and indexable.** Duplicate-content risk; should `noindex` or be removed from production aliases.
+5. **Blog posts have no canonical, no BlogPosting/Article schema, no breadcrumbs.** This is your highest-value SEO surface and it has the weakest signals.
 
-### Top 5 Critical Issues
-1. **No meta descriptions on any page** — zero chance of compelling SERP snippets
-2. **Title tags are brand-only** — "Orderlay" with no keyword context (8 chars)
-3. **No robots.txt or XML sitemap** — Googlebot gets no crawl guidance
-4. **Massive SVG files** (owner.svg = 31 MB, manager.svg = 24 MB) — destroys LCP
-5. **Zero structured data / schema** — no SoftwareApplication, Organization, FAQ, or BreadcrumbList markup
+## Top 5 Quick Wins
 
-### Top 5 Quick Wins
-1. Add meta descriptions to all 6 pages (~30 min)
-2. Rewrite title tags with keywords (~20 min)
-3. Add Open Graph tags to `layout.tsx` (~30 min)
-4. Create `app/robots.ts` and `app/sitemap.ts` (~45 min)
-5. Add FAQ schema to homepage and `/restaurant-goer` (~1 hour)
+1. Centralize a single `SITE_URL` constant and replace `orderlay.com` everywhere (≈ 11 files, single PR).
+2. Make `app/sitemap.ts` dynamic — pull blog slugs from Sanity instead of a hardcoded list.
+3. Add `/og-image.png` (1200x630) to `public/` and verify it returns 200.
+4. Set `alternates: { canonical: ... }` on `/blog` and `/blog/[slug]/page.tsx`.
+5. Fix the H1 on the homepage: `"Restaurant ManagementMade Effortless"` is missing a space (rendered concatenation of two lines).
 
 ---
 
 ## 1. Technical SEO
 
-### Crawlability & Indexability
+### Crawlability
+- ✅ `robots.txt` present, `Allow: /`, `Disallow: /api/`
+- ❌ `Sitemap:` directive in robots points to `https://orderlay.com/sitemap.xml` (wrong host) — fix in [app/robots.ts:10](app/robots.ts#L10)
+- ✅ HTTPS enforced (`Strict-Transport-Security: max-age=63072000`)
+- ⚠️ HSTS lacks `includeSubDomains` and `preload` — not eligible for HSTS preload list
+- ✅ HTTP → HTTPS works; apex `orderlay.app` → 307 → `www.orderlay.app` (clean single hop)
 
-| Check | Status | Detail |
-|-------|--------|--------|
-| robots.txt | ❌ MISSING | Returns 404 — Googlebot has no crawl rules |
-| XML sitemap | ❌ MISSING | No `/sitemap.xml` — pages may not be discovered |
-| Canonical tags | ❌ MISSING | All 6 pages lack `<link rel="canonical">` |
-| Meta robots | ✅ Present (implicit) | No blocking directives found on live pages |
-| 404 page | ✅ Present | Custom 404 renders |
-| HTTPS redirect | N/A | Dev environment (localhost) |
-| HTTP/2 | N/A | Dev environment |
+### Indexability
+- ❌ **Canonical points to non-existent domain on every page.** Confirmed at:
+  - `/` → `https://orderlay.com`
+  - `/restaurant-goer` → `https://orderlay.com/restaurant-goer`
+  - `/contact-us`, `/privacy-policy`, `/terms-condition`, `/cookie-policy` → all on `orderlay.com`
+  - `/blog` and `/blog/qr-ordering-restaurants-2026` → no canonical at all
+- ❌ Vercel preview alias [`website-v2-gules-nu.vercel.app`](https://website-v2-gules-nu.vercel.app) serves Production without canonicalizing — duplicate content
+- ✅ No `noindex` accidentally set
+- ✅ No `<meta name="robots">` blocking
 
-**No robots.txt** means crawlers have zero guidance. For a production site this also means no Sitemap declaration.
-
-**No canonical tags** on any page creates duplicate content risk if the site is accessible on multiple domains (www vs non-www, HTTP vs HTTPS).
-
-### Security Headers
-
+### Security Headers (response on `/`)
 | Header | Status |
-|--------|--------|
-| X-Content-Type-Options | ❌ Missing |
-| X-Frame-Options | ❌ Missing |
-| Content-Security-Policy | ❌ Missing |
-| Strict-Transport-Security | ❌ Missing (N/A dev) |
-| Referrer-Policy | ❌ Missing |
+|---|---|
+| `strict-transport-security` | ✅ `max-age=63072000` (no `includeSubDomains; preload`) |
+| `x-content-type-options` | ✅ `nosniff` |
+| `x-frame-options` | ✅ `DENY` |
+| `referrer-policy` | ✅ `strict-origin-when-cross-origin` |
+| `x-xss-protection` | ⚠️ Set, deprecated by modern browsers (harmless) |
+| `content-security-policy` | ❌ Missing |
+| `permissions-policy` | ❌ Missing |
 
-Next.js does not add security headers by default. These should be added via `next.config.ts` headers array.
-
-### Cache Control
-- Homepage returns `Cache-Control: no-store, must-revalidate` — acceptable for SSR but static assets should have long-term caching.
-
-### Page Count
-- Discovered pages: 6 (`/`, `/restaurant-goer`, `/privacy-policy`, `/cookie-policy`, `/contact-us`, `/terms-condition`)
-- No orphan pages detected.
+### Core Web Vitals (lab estimate — no field data)
+- HTML response weight: **1.36 MB on `/`** (uncompressed) — heavy for a marketing homepage
+- 169 inline `<script>` blocks totaling **~689 KB** (Next.js RSC payload)
+- 9 external script tags
+- `x-vercel-cache: HIT` confirms ISR/static cache is working ✓
+- Real CWV cannot be measured without CrUX field data — request the user wire up Google Search Console to get accurate LCP/INP/CLS
 
 ---
 
 ## 2. Content Quality
 
+### Page Inventory & Meta
+| Path | Status | Title | H1 |
+|---|---|---|---|
+| `/` | 200 | Restaurant Management Software | "Restaurant ManagementMade Effortless" ⚠️ |
+| `/blog` | 200 | Blog \| Orderlay — Restaurant Management Insights — Orderlay ⚠️ | Restaurant Insights |
+| `/blog/qr-ordering-restaurants-2026` | 200 | How QR Ordering is Changing Restaurants in 2026 \| Orderlay Blog — Orderlay ⚠️ | How QR Ordering is Changing Restaurants in 2026 |
+| `/restaurant-goer` | 200 | QR Code Menu & Ordering App for Diners — Orderlay | "Orderlay: Where Every BiteStarts with a Scan" ⚠️ |
+| `/contact-us` | 200 | Contact Orderlay — Restaurant Management Support — Orderlay | Contact Us |
+| `/privacy-policy` | 200 | Privacy Policy — Orderlay Restaurant Software — Orderlay | Privacy Policy |
+| `/terms-condition` | 200 | Terms and Conditions — Orderlay Restaurant Software — Orderlay | Terms & Conditions |
+| `/cookie-policy` | 200 | Cookie Policy — Orderlay Restaurant Software — Orderlay | Cookie Policy |
+
+### Issues
+- **Title duplication** — `app/layout.tsx:23` defines `template: "%s — Orderlay"`. Several titles already include "Orderlay" in the page-level title, so the rendered output reads `"Blog | Orderlay — Restaurant Management Insights — Orderlay"` (Orderlay twice).
+- **H1 concatenation bugs** — On `/`, H1 reads `"Restaurant ManagementMade Effortless"` (missing space between two `<span>`/`<br>` lines). Same on `/restaurant-goer`: `"Orderlay: Where Every BiteStarts with a Scan"`.
+- **Thin blog footprint** — only 1 published post. E-E-A-T (Experience-Expertise-Authoritativeness-Trust) signals are weak: no author schema, no author bios indexed, no topic depth.
+- **Excerpts/descriptions** are well-written and unique per page ✓.
+
 ### E-E-A-T Assessment
-
-| Signal | Status | Notes |
-|--------|--------|-------|
-| Author/company attribution | ❌ Weak | No "About" page, no team section |
-| Trust signals | ⚠️ Partial | Privacy Policy, Cookie Policy, Contact page exist |
-| Reviews/testimonials | ⚠️ Referenced | Review component present but no schema |
-| Physical address/NAP | ❌ Missing | Contact page has no address |
-| Social proof | ⚠️ Partial | Social links present but no follower counts |
-
-### Content Depth
-
-| Page | Word Count | Assessment |
-|------|-----------|------------|
-| `/` (homepage) | ~810 words | Borderline — content is reasonable but mostly UI labels |
-| `/restaurant-goer` | ~600 words | Thin for competitive keyword targeting |
-| `/privacy-policy` | Legal copy | OK — legal pages don't need SEO depth |
-| `/cookie-policy` | Legal copy | OK |
-| `/contact-us` | ~100 words | Thin but acceptable for contact page |
-
-- Homepage content is feature-list driven, not benefit/problem-solution driven
-- FAQ section exists (`RestaurantFaqsList`, `CustomerFaqsList`) — good content signal, but needs FAQ schema
-- Missing: Blog, case studies, comparison pages, industry pages
-
-### Readability
-- Copy is clear and accessible
-- Some grammatical inconsistencies ("Improve your operations and delight your customers with the perfect tool for managing your restaurant efficiently" — passive construction)
-- Heading hierarchy is inconsistent: H1 → H2 → H3/H6 mix with `h6` used for section labels
+- ❌ No public team / about / authors page
+- ❌ No customer logos, case studies, or quantified social proof in HTML (may be rendered client-side; check)
+- ⚠️ Sanity-driven blog posts include `author.name` but no `Person` JSON-LD
+- ✅ Real contact info present (`hello@orderlay.app`, `+977-9801753818`)
+- ✅ App store listings linked (Apple `id6504802718`, Google Play)
 
 ---
 
 ## 3. On-Page SEO
 
 ### Title Tags
-
-| Page | Current Title | Length | Issue |
-|------|--------------|--------|-------|
-| `/` | "Orderlay " | 8 chars | Brand-only, trailing space, no keywords |
-| `/restaurant-goer` | "Orderlay" | 8 chars | Brand-only, no keywords |
-| `/privacy-policy` | "Privacy Policy \| Orderlay" | 25 chars | Too short — Google rewrites at <30 chars |
-| `/cookie-policy` | "Cookie Policy \| Orderlay" | 24 chars | Too short |
-| `/contact-us` | "Contact Us \| Orderlay" | 21 chars | Too short |
-| `/terms-condition` | Unknown | — | Not checked |
-
-**Recommended titles (50–60 chars):**
-- `/` → "Restaurant Management Software — Orderlay"
-- `/restaurant-goer` → "QR Code Ordering for Restaurants — Orderlay"
-- `/privacy-policy` → "Privacy Policy — Orderlay Restaurant Software"
-- `/contact-us` → "Contact Orderlay — Restaurant Management Support"
+- Homepage title `"Restaurant Management Software"` is generic — missing brand. Better: `"Orderlay — Restaurant Management Software with QR Ordering"`.
+- Template "%s — Orderlay" causes double-brand on subpages with manually-suffixed titles.
 
 ### Meta Descriptions
-**All pages: MISSING.** Google will auto-generate snippets from page content, which are often poorly optimized and reduce click-through rate.
+- Present on all 8 pages ✓
+- All within 120–160 char sweet spot ✓
+- Unique per page ✓
 
 ### Heading Structure
-
-**Homepage:**
-- H1: "Restaurant Management Made Effortless" ✅ (1 H1, keyword-relevant)
-- H2: "Why Orderlay Works Best for You", "FAQ"
-- H3: Feature sub-headings ✅
-- H6: Used as section labels — semantic misuse
-
-**`/restaurant-goer`:**
-- H1: "Orderlay: Where Every Bite Starts with a Scan" ✅
-- H2/H3: Present
-
-**`/contact-us`:**
-- ❌ No H1 found — major on-page issue
+- ✅ Exactly one `<h1>` per page on every URL audited
+- ⚠️ Most pages have only 1–3 `<h2>` sections; thin structure for crawl/AI parsing
+- ❌ H1 text concatenation bugs on `/` and `/restaurant-goer`
 
 ### Internal Linking
-- 7 internal links found from homepage
-- No breadcrumb navigation
-- `#community` and `#join` are anchor links — fine for UX but add no crawl value
-- `/terms-condition` is not linked from any discovered page (orphaned)
+- Footer + nav present on all pages ✓
+- `/restaurant-goer` does **not** link back to `/blog` — orphaned blog from this surface
+- Blog post does **not** link to `/` or `/restaurant-goer` — no upward navigation
+- Sanity blog post body is portable text — internal cross-linking between posts is unverified (only 1 post exists)
 
-### Open Graph / Social
-**All pages: MISSING.** No `og:title`, `og:description`, `og:image`, `og:type`, or Twitter Card tags. Social shares will render without preview cards.
+### URL Structure
+- ✅ Clean, semantic, hyphenated, lowercase
+- ⚠️ `terms-condition` should be `terms-and-conditions` or `terms` (minor)
 
 ---
 
 ## 4. Schema / Structured Data
 
-**Zero schema markup found on any page.**
+### Currently Implemented
+| Page | Organization | SoftwareApplication | FAQPage | BlogPosting | Breadcrumb |
+|---|---|---|---|---|---|
+| `/` | ✅ | ✅ | ✅ | — | ❌ |
+| `/blog` | ✅ | ✅ | — | — | ❌ |
+| `/blog/qr-ordering-restaurants-2026` | ✅ | ✅ | — | ❌ | ❌ |
+| `/restaurant-goer` | ✅ | ✅ | ✅ | — | ❌ |
+| All others | ✅ | ✅ | — | — | ❌ |
 
-### Missing Opportunities
+### Issues
+- ❌ **`url` field in Organization and SoftwareApplication points to `https://orderlay.com`** (`components/JsonLd.tsx:19`, `:35`, `:36`, `:47`) — same canonical bug
+- ❌ **No BlogPosting / Article schema** on blog post — biggest missed opportunity
+- ❌ **No BreadcrumbList** anywhere
+- ❌ **Organization schema is global on every page**, but it should only be on `/`. SoftwareApplication can stay site-wide.
+- ✅ FAQPage schema is present on `/` and `/restaurant-goer` and is well-formed
+- ✅ JSON-LD parses cleanly (validated via `python json.loads`)
 
-| Schema Type | Page | Priority |
-|------------|------|---------|
-| `SoftwareApplication` | `/` | Critical |
-| `Organization` | `/` (layout) | High |
-| `FAQPage` | `/`, `/restaurant-goer` | High |
-| `WebSite` (with SearchAction) | layout | Medium |
-| `BreadcrumbList` | All pages | Medium |
-| `ContactPage` | `/contact-us` | Medium |
+### Validation
+Run live validation once URLs are fixed:
+- https://search.google.com/test/rich-results
+- https://validator.schema.org/
 
 ---
 
-## 5. Performance
+## 5. Performance (Lab Estimate)
 
-### Page Load (Local Dev)
-- Homepage response time: ~82ms (dev server — not representative of production)
-- HTML payload: **2.1 MB** — extremely large for an HTML document (should be <100 KB)
+| Metric | Estimate | Notes |
+|---|---|---|
+| LCP | ⚠️ likely 2.5–4s | 1.36 MB HTML + 689 KB inline RSC payload |
+| INP | likely OK | Next.js 15 + RSC hydration |
+| CLS | unknown | needs visual capture |
+| TTFB | ✅ good | Vercel cache HIT |
+| Total page weight | 🔴 1.36 MB HTML alone | Investigate hero image, fonts, Sanity-image proxying |
 
-### Critical Image Issues
-
-| File | Size | Issue |
-|------|------|-------|
-| `/asset/owner.svg` | **31 MB** | Uncompressed complex SVG — devastating LCP |
-| `/asset/manager.svg` | **24 MB** | Same issue |
-| `/asset/kitchen.svg` | **21 MB** | Same issue |
-| `/asset/member.svg` | **18 MB** | Same issue |
-| `/asset/waitstaff.svg` | 3 MB | Still very large |
-| `/asset/review.svg` | 2 MB | Large |
-| `/asset/owner.png` | 1.7 MB | Unoptimized PNG |
-| `/asset/manager.png` | 1.5 MB | Unoptimized PNG |
-
-**These SVGs are the single biggest performance issue on the site.** A 31 MB SVG will cause LCP to fail catastrophically (Google's "Poor" threshold is >4s). These should be:
-1. Replaced with WebP/AVIF for raster images
-2. Simplified/compressed for SVGs (use SVGO)
-3. Served via Next.js `<Image>` with proper `sizes` attribute
-
-### Next.js Image Usage
-- Most images use Next.js `<Image>` component ✅
-- `DashboardDemoItem.tsx` uses raw `<img>` tag — loses optimization benefits
-- Preloaded images: `sales.svg`, `member-dash.png`, `ordersummary.svg` ✅
+Real CWV requires CrUX field data — verify the property is added in Search Console and PageSpeed Insights. The skill's `seo-google` agent can pull this if Google API credentials are configured.
 
 ---
 
 ## 6. Images
 
-| Check | Status |
-|-------|--------|
-| Next.js Image component | ✅ Used on most images |
-| Raw `<img>` tags | ⚠️ 1 component (DashboardDemoItem) |
-| Alt text missing | ✅ None missing outright |
-| Empty alt text | ⚠️ 4 images with `alt=""` on homepage/restaurant-goer |
-| Image format (WebP/AVIF) | ❌ Most served as PNG/SVG |
-| Oversized files | ❌ Critical — 4 SVGs over 18 MB each |
+- ✅ 23 `<img>` tags on `/`, all have `alt` attribute (4 with empty alt — acceptable for decorative)
+- ✅ Local app screenshots in `/public/` are SVG (well-compressed)
+- ✅ Blog post uses `next/image` with proper `sizes` and `priority` on hero
+- ⚠️ Sanity image URL pattern uses `?w=1200&h=630` — confirm Vercel image optimizer or Sanity CDN is serving WebP/AVIF
+- ❌ **`/og-image.png` returns 404** — the most-shared image on the site is broken
+- ⚠️ `/blog` has no `og:image` declared in metadata (`app/blog/page.tsx:13`)
 
 ---
 
-## 7. AI Search Readiness
+## 7. AI Search Readiness (GEO)
 
-| Signal | Status |
-|--------|--------|
-| `llms.txt` | ❌ Missing |
-| Structured data for citations | ❌ Missing |
-| Clear entity definition (product/org) | ⚠️ Weak — brand name only |
-| Passage-level citability | ⚠️ Partial — FAQ content exists |
-| AI crawler access | ✅ No blocking rules (robots.txt absent) |
-
-Without structured data and clear entity signals, Orderlay is unlikely to be cited by AI overviews or AI assistants when users ask about restaurant management software.
+- ✅ `llms.txt` exists at [public/llms.txt](public/llms.txt), well-structured, declares features and contact info
+- ❌ All URLs in `llms.txt` reference `orderlay.com` — same bug
+- ✅ Content is parseable as plain HTML (not JS-only rendered for primary copy)
+- ⚠️ No FAQ-style passage formatting on blog post
+- ⚠️ No author bylines surfaced in JSON-LD — AI engines can't attribute authorship
+- ⚠️ Homepage hero copy is short; AI engines prefer dense factual passages
 
 ---
 
-## Pages Audit Summary
+## 8. SXO (Search Experience)
 
-| Page | Title | Meta Desc | H1 | Canonical | Schema | OG Tags |
-|------|-------|-----------|-----|-----------|--------|---------|
-| `/` | ⚠️ Short | ❌ | ✅ | ❌ | ❌ | ❌ |
-| `/restaurant-goer` | ⚠️ Short | ❌ | ✅ | ❌ | ❌ | ❌ |
-| `/privacy-policy` | ⚠️ Short | ❌ | ✅ | ❌ | ❌ | ❌ |
-| `/cookie-policy` | ⚠️ Short | ❌ | ✅ | ❌ | ❌ | ❌ |
-| `/contact-us` | ⚠️ Short | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `/terms-condition` | Unknown | ❌ | ? | ❌ | ❌ | ❌ |
+- Page-type alignment is correct: SaaS marketing pages match commercial-investigation intent
+- Blog post is informational and matches that intent
+- `/restaurant-goer` is split from `/` — be careful: searchers querying "restaurant ordering app for customers" may hit this page expecting consumer download CTAs (which are present ✓) but the canonical mess will demote it
+
+---
+
+## 9. Local SEO
+
+- Address not surfaced in HTML; phone is present (Nepal, +977)
+- No `LocalBusiness` schema (correct — this is SaaS, not a brick-and-mortar)
+- `seo-local` is not applicable to this business type
+
+---
+
+## 10. Backlinks
+
+- Not measured (no Moz/Bing API credentials configured in this run)
+- Suggest: configure `python scripts/backlinks_auth.py --check` to enrich next audit
+
+---
+
+## What's Working Well
+
+- Clean Next.js 15 App Router setup with ISR (`x-vercel-cache: HIT`)
+- HTTPS, HSTS, security headers all present
+- All pages return 200; no 404/500 errors
+- robots.txt correctly blocks `/api/`
+- llms.txt structure is excellent (just needs URL fix)
+- Image alt text discipline is consistent
+- FAQ schema is well-formed
+- Blog system already set up with Sanity (ready to scale content)
+

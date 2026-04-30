@@ -1,0 +1,20 @@
+# Orderlay
+> Restaurant management software with QR-based ordering for restaurant owners and diners.
+
+Orderlay is a SaaS platform that helps restaurants manage tables, orders, staff roles, and view sales analytics in real time. Diners use the app to scan QR codes on tables, browse menus, customize orders, and pay — without waiting for staff.
+
+## Core Features
+- QR code menu and ordering (no app download required for diners)
+- Table management with real-time order and status tracking
+- Staff role management (owner, manager, kitchen, waitstaff)
+- Sales insights and performance dashboards
+- Mobile apps for iOS and Android
+
+## Pages
+- [Homepage](https://orderlay.com): Restaurant management features overview
+- [For Diners](https://orderlay.com/restaurant-goer): QR ordering experience for customers
+- [Contact](https://orderlay.com/contact-us): Support and sales — hello@orderlay.app, +977 9801753818
+
+## Company
+- Website: https://orderlay.com
+- Support: https://support.orderlay.app/en

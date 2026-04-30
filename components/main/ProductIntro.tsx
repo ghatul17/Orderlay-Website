@@ -28,6 +28,7 @@ function ProductIntro({
 
           <h1 className="mb-6 text-[36px] sm:text-[40px] md:text-[44px] lg:text-[48px] font-semibold leading-[1.15] tracking-[-0.5px] font-jakarta">
             <span className={heading1Color || "text-primary"}>{introHead1}</span>
+            {' '}
             <br />
             <span className={heading2Color || "text-gray-800"}>{introHead2}</span>
           </h1>

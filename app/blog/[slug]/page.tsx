@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { sanityFetch } from '@/sanity/lib/client'
 import { Badge } from '@/components/ui/badge'
+import { SITE_URL } from '@/constants/site'
 import {
   postBySlugQuery,
   allPostSlugsQuery,
@@ -42,13 +43,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       : undefined
 
   return {
-    title: `${metaTitle} | Orderlay Blog`,
+    title: { absolute: `${metaTitle} | Orderlay Blog` },
     description: metaDescription,
     keywords: post.seo?.keywords,
+    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
     openGraph: {
       title: metaTitle,
       description: metaDescription,
       type: 'article',
+      url: `${SITE_URL}/blog/${slug}`,
       publishedTime: post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
       images: ogImageUrl ? [{ url: ogImageUrl, width: 1200, height: 630 }] : undefined,
@@ -83,6 +86,31 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.title,
+            description: post.excerpt,
+            image: post.mainImage && (post.mainImage as any)?.asset ? urlFor(post.mainImage).width(1200).height(630).url() : undefined,
+            datePublished: post.publishedAt,
+            dateModified: post._updatedAt,
+            author: {
+              '@type': 'Person',
+              name: post.author?.name,
+              ...(post.author?.bio && { description: post.author.bio }),
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Orderlay',
+              logo: { '@type': 'ImageObject', url: `${SITE_URL}/asset/logo.svg` },
+            },
+            mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${post.slug.current}` },
+          }),
+        }}
+      />
       {/* Article Header */}
       <header className="bg-white border-b border-gray-100">
         <div className="max-w-[760px] mx-auto px-6 py-12 md:py-16">

@@ -5,9 +5,10 @@ import InitialIntro from '@/components/policies-small-component/InitialIntro'
 import { Metadata } from 'next'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import { BreadcrumbSchema } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Orderlay Restaurant Software",
+  title: { absolute: "Privacy Policy — Orderlay Restaurant Software" },
   description:
     "Read Orderlay's privacy policy to understand how we collect, use, and protect your personal data.",
   alternates: { canonical: "/privacy-policy" },
@@ -17,6 +18,12 @@ export default function page() {
 
   return (
     <div className=' w-full'>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '' },
+          { name: 'Privacy Policy', item: '/privacy-policy' },
+        ]}
+      />
 
       <Header subHeader='Know us Better' mainHeader='Privacy Policy' />
 
@@ -113,7 +120,7 @@ export default function page() {
         paragraph={[`Should you wish to report a complaint or if you feel that Our Company has not addressed your concern in 
           a satisfactory manner, you may contact the Information Commissioner's Office.
           `,
-          `Email us at: hello@orderlay.com`,
+          `Email us at: hello@orderlay.app`,
           `Or write to us at: 11-17 York Street, Sydney NSW 2000`,
           `Call us at: +61423514564`
         ]}

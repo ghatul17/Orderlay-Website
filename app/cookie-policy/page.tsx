@@ -5,9 +5,10 @@ import InitialIntro from '@/components/policies-small-component/InitialIntro'
 import { Metadata } from 'next'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import { BreadcrumbSchema } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: "Cookie Policy — Orderlay Restaurant Software",
+  title: { absolute: "Cookie Policy — Orderlay Restaurant Software" },
   description:
     "Learn how Orderlay uses cookies to improve your experience and keep our platform running smoothly.",
   alternates: { canonical: "/cookie-policy" },
@@ -17,6 +18,12 @@ export default function page() {
 
   return (
     <div className=' w-full'>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '' },
+          { name: 'Cookie Policy', item: '/cookie-policy' },
+        ]}
+      />
 
       <Header subHeader='Know us Better' mainHeader='Cookie Policy' />
 
@@ -120,7 +127,7 @@ export default function page() {
       <GeneralForAllPolicies
         type={'paragraph'}
         title={`8.  Contact Us`}
-        paragraph={[`If you have questions or concerns about our use of cookies, please contact us at hello@orderlay.com .`
+        paragraph={[`If you have questions or concerns about our use of cookies, please contact us at hello@orderlay.app .`
         ]}
       />
 

@@ -3,7 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "@/components/navigation/Nav";
 import Footer from "@/components/Footer";
-import { OrganizationSchema, SoftwareApplicationSchema } from "@/components/JsonLd";
+import { SoftwareApplicationSchema } from "@/components/JsonLd";
+import { SITE_URL, SITE_NAME } from "@/constants/site";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://orderlay.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Orderlay — Restaurant Management Software",
     template: "%s — Orderlay",
@@ -27,8 +28,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://orderlay.com",
-    siteName: "Orderlay",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     title: "Orderlay — Restaurant Management Software",
     description:
       "Orderlay helps restaurants manage orders, tables, and staff effortlessly. QR-based ordering, real-time dashboards, and role-based access for every team member.",
@@ -50,6 +51,8 @@ export const metadata: Metadata = {
   },
 };
 
+import Script from "next/script";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -57,10 +60,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-GK7Z21PPBJ"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-GK7Z21PPBJ');
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <OrganizationSchema />
         <SoftwareApplicationSchema />
         <Nav/>
         {children}

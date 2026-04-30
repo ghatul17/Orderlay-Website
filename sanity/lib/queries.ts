@@ -105,3 +105,11 @@ export const allPostSlugsQuery = groq`
     "slug": slug.current
   }
 `
+
+// I. All published post slugs with last-modified — used by sitemap.ts
+export const allPostsForSitemapQuery = groq`
+  *[_type == "post" && defined(slug.current) && defined(publishedAt) && !(_id in path("drafts.**"))] {
+    "slug": slug.current,
+    _updatedAt
+  }
+`

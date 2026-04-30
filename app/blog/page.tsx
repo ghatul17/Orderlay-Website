@@ -5,11 +5,13 @@ import { allPostsQuery, allCategoriesQuery, postsByCategoryQuery } from '@/sanit
 import type { Post, Category } from '@/sanity/lib/types'
 import { CategoryFilter } from '@/components/blog/CategoryFilter'
 import { BentoGrid } from '@/components/blog/BentoGrid'
+import { SITE_URL } from '@/constants/site'
 
 export const metadata: Metadata = {
-  title: 'Blog | Orderlay — Restaurant Management Insights',
+  title: { absolute: 'Orderlay Blog — Restaurant Management Insights' },
   description:
     'Expert tips on restaurant operations, marketing, inventory, and growth for modern restaurant owners.',
+  alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: 'Orderlay Blog',
     description: 'Expert tips for restaurant owners and managers.',

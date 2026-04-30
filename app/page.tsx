@@ -1,7 +1,7 @@
 
 
 import type { Metadata } from "next";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, OrganizationSchema } from "@/components/JsonLd";
 import Download from "@/components/Download";
 import { RestaurantFaqsList } from "@/constants/faqs";
 import DashboardDemo from "@/components/main/DashboardDemo";
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <OrganizationSchema />
       {/* Product intr0 */}
       <ProductIntro
         introHead1={"Restaurant Management"}
