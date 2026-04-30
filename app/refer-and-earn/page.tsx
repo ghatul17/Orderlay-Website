@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import ReferralSignupForm from '@/components/refer-and-earn/ReferralSignupForm'
 import CopyButton from '@/components/refer-and-earn/CopyButton'
+import ReferrerRegisterForm from '@/components/refer-and-earn/ReferrerRegisterForm'
 
 export const metadata: Metadata = {
   title: 'Refer & Earn — Orderlay',
@@ -224,7 +225,58 @@ export default async function ReferAndEarnPage({
           </div>
         </div>
 
-        {/* ── Row 4: CTA strip ─────────────────────────────────────────────── */}
+        {/* ── Row 4: Get referral code registration ───────────────────────── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+
+          {/* Left — explainer (2 cols) */}
+          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200/80 shadow-sm p-7 flex flex-col gap-5">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
+                New here?
+              </p>
+              <h2 className="text-xl font-semibold font-jakarta text-gray-900">
+                Register to get your referral code
+              </h2>
+              <p className="text-sm text-gray-500 font-jakarta mt-2 leading-relaxed max-w-[480px]">
+                Not on Orderlay yet? Register your restaurant below and we'll generate a unique
+                referral code instantly — then start sharing it to earn 20% commission on every
+                converted referral.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { step: '01', label: 'Register your restaurant', desc: 'Fill in your name, phone, and restaurant.' },
+                { step: '02', label: 'Get your unique code', desc: 'We generate OL-XXXXXX instantly.' },
+                { step: '03', label: 'Share & earn', desc: '20% commission when they pay.' },
+              ].map((s) => (
+                <div key={s.step} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-2">
+                  <span className="text-xs font-bold text-primary font-jakarta">{s.step}</span>
+                  <p className="text-sm font-semibold font-jakarta text-gray-900">{s.label}</p>
+                  <p className="text-xs text-gray-500 font-jakarta leading-relaxed">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — registration form (1 col) */}
+          <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm p-7 flex flex-col gap-5">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
+                Step 1
+              </p>
+              <h2 className="text-lg font-semibold font-jakarta text-gray-900">
+                Get your referral code
+              </h2>
+              <p className="text-sm text-gray-500 font-jakarta mt-1">
+                Already registered? Use the code from your dashboard.
+              </p>
+            </div>
+            <ReferrerRegisterForm />
+          </div>
+        </div>
+
+        {/* ── Row 5: CTA strip ─────────────────────────────────────────────── */}
         <div className="bg-primary rounded-xl p-7 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex flex-col gap-2">
             <h2 className="text-xl md:text-2xl font-semibold font-jakarta text-white leading-snug">

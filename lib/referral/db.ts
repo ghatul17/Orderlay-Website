@@ -96,6 +96,41 @@ export async function createReferral(params: {
   throw new Error('createReferral: DB not wired up')
 }
 
+// ─── Referrer registration ─────────────────────────────────────────────────────
+
+export async function createReferrer(_params: {
+  name: string
+  phone: string
+  email: string | null
+  restaurant_name: string
+  password_hash: string
+}): Promise<DBUser> {
+  // TODO:
+  // const { data, error } = await supabase
+  //   .from('users')
+  //   .insert({ ..._params, role: 'referrer' })
+  //   .select()
+  //   .single()
+  // if (error) throw error
+  // return data
+  throw new Error('createReferrer: DB not wired up')
+}
+
+export async function createReferralCode(params: {
+  owner_id: string
+  code: string
+}): Promise<DBReferralCode> {
+  // TODO:
+  // const { data, error } = await supabase
+  //   .from('referral_codes')
+  //   .insert({ ...params, is_active: true })
+  //   .select()
+  //   .single()
+  // if (error) throw error
+  // return data
+  throw new Error('createReferralCode: DB not wired up')
+}
+
 // ─── Post-trial commission (call from payment webhook) ────────────────────────
 
 export async function applyTrialConversionRewards(params: {
