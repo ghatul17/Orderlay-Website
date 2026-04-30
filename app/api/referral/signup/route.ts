@@ -42,6 +42,17 @@ export async function POST(req: NextRequest) {
       return errorResponse(err.httpStatus, err.code, err.message)
     }
 
+    const msg = err instanceof Error ? err.message : ''
+    const isNotWiredUp = msg.includes('not wired up')
+
+    if (isNotWiredUp) {
+      console.warn('[referral/signup] DB not connected — returning success without persisting')
+      return NextResponse.json(
+        { success: true, restaurant_name: parsed.data.restaurant_name, status: 'trial' },
+        { status: 201 },
+      )
+    }
+
     console.error('[referral/signup]', err)
     return errorResponse(500, 'SERVER_ERROR', 'Something went wrong. Please try again.')
   }

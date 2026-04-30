@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { referralSignupSchema, ReferralSignupInput } from '@/lib/referral/validation'
@@ -54,24 +54,52 @@ export default function ReferralSignupForm({ mode, referralCode }: Props) {
 
   if (status === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-10 text-center">
-        <div className="w-14 h-14 rounded-full bg-orange-50 flex items-center justify-center">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-[360px] p-8 flex flex-col items-center text-center gap-5">
+
+          <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-xl font-semibold font-jakarta text-gray-900">
+              {mode === 'referrer_filled' ? 'Restaurant added!' : "You're all set!"}
+            </h2>
+            <p className="text-sm text-gray-500 font-jakarta leading-relaxed">
+              Our team will contact you very soon to get you started on Orderlay.
+            </p>
+          </div>
+
+          <div className="w-full border-t border-gray-100" />
+
+          <div className="flex flex-col gap-2 w-full">
+            {[
+              mode === 'referrer_filled'
+                ? "They'll receive a WhatsApp with login details."
+                : 'Your 7-day free trial has started.',
+              '20% off automatically applied at checkout.',
+              'No credit card required.',
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2.5">
+                <span className="w-4 h-4 rounded-full bg-orange-50 flex items-center justify-center shrink-0">
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                <p className="text-xs text-gray-500 font-jakarta text-left">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setStatus('idle')}
+            className="w-full h-11 bg-primary text-white rounded-xl font-semibold text-sm font-jakarta hover:opacity-90 transition-opacity"
+          >
+            {mode === 'referrer_filled' ? 'Refer another restaurant' : 'Done'}
+          </button>
         </div>
-        <p className="font-semibold font-jakarta text-gray-900 text-lg">
-          {mode === 'referrer_filled'
-            ? "Added! They'll get a WhatsApp to log in."
-            : 'Account created! Your 7-day trial has started.'}
-        </p>
-        <p className="text-sm text-gray-500 font-jakarta">Commission will be applied once they subscribe to a plan.</p>
-        <button
-          onClick={() => setStatus('idle')}
-          className="mt-2 text-sm text-primary underline underline-offset-2 font-jakarta"
-        >
-          Refer another restaurant
-        </button>
       </div>
     )
   }
