@@ -53,9 +53,9 @@ export default async function ReferAndEarnPage({
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { value: '20%', label: 'Your commission' },
+                { value: '₹200/mo', label: 'Per referral' },
                 { value: '7 days', label: 'Free trial' },
                 { value: '20% off', label: 'Referee discount' },
-                { value: 'On pay', label: 'When you earn' },
               ].map((s) => (
                 <div key={s.label} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1">
                   <p className="text-xl font-bold font-jakarta text-gray-900">{s.value}</p>
@@ -167,13 +167,14 @@ export default async function ReferAndEarnPage({
                 How much can you earn?
               </h2>
               <p className="text-sm text-gray-500 font-jakarta leading-relaxed">
-                Refer 5 restaurants on the ₹1,499/mo plan and earn ₹1,499 every month — passively.
+                Refer 5 restaurants on the ₹1,000/mo plan and earn ₹1,000 every month — passively.
+                On the yearly plan (₹10,000) that's ₹2,000 per referral per year.
               </p>
               <div className="grid grid-cols-3 gap-3 mt-2">
                 {[
-                  { refs: '1 referral', earn: '₹300/mo' },
-                  { refs: '5 referrals', earn: '₹1,499/mo' },
-                  { refs: '10 referrals', earn: '₹2,998/mo' },
+                  { refs: '1 referral', earn: '₹200/mo' },
+                  { refs: '5 referrals', earn: '₹1,000/mo' },
+                  { refs: '10 referrals', earn: '₹2,000/mo' },
                 ].map((item) => (
                   <div key={item.refs} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1">
                     <p className="text-xs text-gray-400 font-jakarta">{item.refs}</p>
