@@ -43,6 +43,9 @@ export default function ReferrerRegisterForm() {
   }
 
   if (status === 'success') {
+    const siteUrl = typeof window !== 'undefined' ? window.location.origin : ''
+    const signupLink = `${siteUrl}/signup?ref=${referralCode}`
+
     return (
       <div className="flex flex-col gap-5">
         {/* Success badge */}
@@ -81,15 +84,15 @@ export default function ReferrerRegisterForm() {
           <div className="flex items-center gap-3">
             <div className="flex-1 min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-5 py-3">
               <p className="text-sm font-jakarta text-gray-600 truncate">
-                orderlay.app/signup?ref={referralCode}
+                {signupLink}
               </p>
             </div>
-            <CopyButton value={`orderlay.app/signup?ref=${referralCode}`} />
+            <CopyButton value={signupLink} />
           </div>
         </div>
 
         <a
-          href={`https://wa.me/?text=Join%20Orderlay%20with%20my%20referral%3A%20orderlay.app%2Fsignup%3Fref%3D${referralCode}`}
+          href={`https://wa.me/?text=Join%20Orderlay%20with%20my%20referral%3A%20${encodeURIComponent(signupLink)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="w-full h-11 flex items-center justify-center gap-2 bg-[#25D366] text-white rounded-xl font-semibold text-sm font-jakarta hover:opacity-90 transition-opacity"

@@ -24,6 +24,7 @@ export default async function ReferAndEarnPage({
   const refCode = typeof params?.ref === 'string' ? params.ref : ''
   const mode = refCode ? 'self_filled' : 'referrer_filled'
   const resolvedCode = refCode || 'YOUR-CODE'
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '')
 
   return (
     <main className="w-full bg-[#FAFAFA] min-h-screen">
@@ -68,10 +69,10 @@ export default async function ReferAndEarnPage({
               <div className="flex-1 min-w-0">
                 <p className="text-xs text-gray-500 font-jakarta mb-0.5">Your referral link</p>
                 <p className="text-sm font-semibold font-jakarta text-gray-900 truncate">
-                  orderlay.app/signup?ref={resolvedCode}
+                  {siteUrl}/signup?ref={resolvedCode}
                 </p>
               </div>
-              <CopyButton value={`orderlay.app/signup?ref=${resolvedCode}`} />
+              <CopyButton value={`${siteUrl}/signup?ref=${resolvedCode}`} />
             </div>
           </div>
 
@@ -225,7 +226,7 @@ export default async function ReferAndEarnPage({
             </p>
           </div>
           <a
-            href={`https://wa.me/?text=Join%20Orderlay%20with%20my%20referral%20link%3A%20orderlay.app%2Fsignup%3Fref%3D${resolvedCode}`}
+            href={`https://wa.me/?text=Join%20Orderlay%20with%20my%20referral%20link%3A%20${encodeURIComponent(siteUrl)}%2Fsignup%3Fref%3D${resolvedCode}`}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 flex items-center gap-2 h-12 px-6 bg-white text-primary rounded-xl font-semibold text-sm font-jakarta hover:opacity-90 transition-opacity"
