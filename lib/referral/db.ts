@@ -1,3 +1,5 @@
+import { supabase } from '../supabase/client'
+
 /**
  * DB abstraction layer — wire up your Supabase/PostgreSQL client here.
  * Replace the TODO stubs with real queries. All function signatures are final.
@@ -41,24 +43,24 @@ export interface DBReferral {
 // ─── Referral code queries ─────────────────────────────────────────────────────
 
 export async function findReferralCode(code: string): Promise<DBReferralCode | null> {
-  // TODO: replace with your DB client
-  // Example (Supabase):
-  // const { data } = await supabase
-  //   .from('referral_codes')
-  //   .select('id, code, owner_id, is_active, users!owner_id(phone)')
-  //   .eq('code', code)
-  //   .single()
-  // return data ? { ...data, owner_phone: data.users?.phone } : null
-  throw new Error('findReferralCode: DB not wired up')
+  const { data, error } = await supabase
+    .from('referral_codes')
+    .select('id, code, owner_id, is_active, users!owner_id(phone)')
+    .eq('code', code)
+    .single()
+    
+  if (error || !data) return null;
+  
+  // @ts-ignore
+  return { ...data, owner_phone: data.users?.phone }
 }
 
 // ─── User queries ──────────────────────────────────────────────────────────────
 
 export async function findUserByPhone(phone: string): Promise<DBUser | null> {
-  // TODO:
-  // const { data } = await supabase.from('users').select('*').eq('phone', phone).single()
-  // return data ?? null
-  throw new Error('findUserByPhone: DB not wired up')
+  const { data, error } = await supabase.from('users').select('*').eq('phone', phone).single()
+  if (error) return null;
+  return data;
 }
 
 export async function createUser(params: {
@@ -69,15 +71,13 @@ export async function createUser(params: {
   trial_started_at: Date
   trial_ends_at: Date
 }): Promise<DBUser> {
-  // TODO:
-  // const { data, error } = await supabase
-  //   .from('users')
-  //   .insert({ ...params, role: 'restaurant_owner' })
-  //   .select()
-  //   .single()
-  // if (error) throw error
-  // return data
-  throw new Error('createUser: DB not wired up')
+  const { data, error } = await supabase
+    .from('users')
+    .insert({ ...params, role: 'restaurant_owner' })
+    .select()
+    .single()
+  if (error) throw error
+  return data
 }
 
 // ─── Referral record queries ───────────────────────────────────────────────────
@@ -89,11 +89,9 @@ export async function createReferral(params: {
   status: 'trial'
   signup_way: 'referrer_filled' | 'self_filled'
 }): Promise<DBReferral> {
-  // TODO:
-  // const { data, error } = await supabase.from('referrals').insert(params).select().single()
-  // if (error) throw error
-  // return data
-  throw new Error('createReferral: DB not wired up')
+  const { data, error } = await supabase.from('referrals').insert(params).select().single()
+  if (error) throw error
+  return data
 }
 
 // ─── Referrer registration ─────────────────────────────────────────────────────
@@ -105,30 +103,26 @@ export async function createReferrer(_params: {
   restaurant_name: string
   password_hash: string
 }): Promise<DBUser> {
-  // TODO:
-  // const { data, error } = await supabase
-  //   .from('users')
-  //   .insert({ ..._params, role: 'referrer' })
-  //   .select()
-  //   .single()
-  // if (error) throw error
-  // return data
-  throw new Error('createReferrer: DB not wired up')
+  const { data, error } = await supabase
+    .from('users')
+    .insert({ ..._params, role: 'referrer' })
+    .select()
+    .single()
+  if (error) throw error
+  return data
 }
 
 export async function createReferralCode(params: {
   owner_id: string
   code: string
 }): Promise<DBReferralCode> {
-  // TODO:
-  // const { data, error } = await supabase
-  //   .from('referral_codes')
-  //   .insert({ ...params, is_active: true })
-  //   .select()
-  //   .single()
-  // if (error) throw error
-  // return data
-  throw new Error('createReferralCode: DB not wired up')
+  const { data, error } = await supabase
+    .from('referral_codes')
+    .insert({ ...params, is_active: true })
+    .select()
+    .single()
+  if (error) throw error
+  return data
 }
 
 // ─── Post-trial commission (call from payment webhook) ────────────────────────
@@ -139,19 +133,20 @@ export async function applyTrialConversionRewards(params: {
 }): Promise<void> {
   const commission_amount = params.plan_price * 0.2
 
-  // TODO:
   // Step 1 — create commission record
-  // await supabase.from('commissions').insert({
-  //   referral_id: params.referral_id,
-  //   amount: commission_amount,
-  //   status: 'pending',
-  // })
-  //
+  const { error: commissionError } = await supabase.from('commissions').insert({
+    referral_id: params.referral_id,
+    amount: commission_amount,
+    status: 'pending',
+  })
+  if (commissionError) throw commissionError;
+
   // Step 2 — update referral status to 'active'
-  // await supabase.from('referrals')
-  //   .update({ status: 'active' })
-  //   .eq('id', params.referral_id)
-  //
+  const { error: referralError } = await supabase.from('referrals')
+    .update({ status: 'active' })
+    .eq('id', params.referral_id)
+    
+  if (referralError) throw referralError;
+
   // Note: the 20% discount for referee is applied at checkout, not here.
-  throw new Error('applyTrialConversionRewards: DB not wired up')
 }

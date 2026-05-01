@@ -12,9 +12,9 @@ import ProductIntro from "@/components/main/ProductIntro";
 import BlogSection from "@/components/main/BlogSection";
 
 export const metadata: Metadata = {
-  title: "Restaurant Management Software",
+  title: "Restaurant Management System in Nepal | Orderlay",
   description:
-    "Orderlay helps restaurants manage orders, tables, and staff effortlessly. QR-based ordering, real-time dashboards, and role-based access for every team member.",
+    "Nepal's easiest restaurant management system. QR ordering, KOT printing, table management & real-time sales reports. Used by restaurants across Nepal. Free to start.",
   alternates: { canonical: "/" },
 };
 

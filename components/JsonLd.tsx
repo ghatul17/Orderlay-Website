@@ -36,6 +36,15 @@ export function OrganizationSchema() {
           name: "Orderlay",
           url: SITE_URL,
           logo: `${SITE_URL}/asset/logo.svg`,
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "NP",
+            addressLocality: "Kathmandu",
+          },
+          areaServed: {
+            "@type": "Country",
+            name: "Nepal",
+          },
           sameAs: [
             "https://www.facebook.com/profile.php?id=61557919740911",
             "https://www.instagram.com/orderlay.app/",
