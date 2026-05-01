@@ -71,9 +71,10 @@ export async function createUser(params: {
   trial_started_at: Date
   trial_ends_at: Date
 }): Promise<DBUser> {
+  const { password_hash: _, ...rest } = params
   const { data, error } = await supabase
     .from('users')
-    .insert({ ...params, role: 'restaurant_owner' })
+    .insert({ ...rest, role: 'restaurant_owner' })
     .select()
     .single()
   if (error) throw error
@@ -103,9 +104,10 @@ export async function createReferrer(_params: {
   restaurant_name: string
   password_hash: string
 }): Promise<DBUser> {
+  const { password_hash: _, ...rest } = _params
   const { data, error } = await supabase
     .from('users')
-    .insert({ ..._params, role: 'referrer' })
+    .insert({ ...rest, role: 'referrer' })
     .select()
     .single()
   if (error) throw error
