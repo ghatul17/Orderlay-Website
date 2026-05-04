@@ -63,6 +63,20 @@ export async function POST(req: NextRequest) {
     console.warn('[referral/register] DB not connected — returning code without persisting')
   }
 
+  // ── Trigger Webhook ────────────────────────────────────────────────────────
+  // We trigger this after the main logic to ensure the user gets a response quickly,
+  // but before returning the response to ensure the webhook call starts.
+  // Note: triggerReferralWebhook handles its own errors.
+  const { triggerReferralWebhook } = await import('@/lib/webhook')
+  triggerReferralWebhook({
+    event_type: 'referrer_registration',
+    name,
+    phone: normalizedPhone,
+    email: email || null,
+    restaurant_name,
+    referral_code: code,
+  })
+
   return NextResponse.json({ success: true, referral_code: code }, { status: 201 })
 }
 

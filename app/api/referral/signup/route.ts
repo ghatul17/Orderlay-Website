@@ -36,6 +36,19 @@ export async function POST(req: NextRequest) {
   // ── Run core flow ────────────────────────────────────────────────────────────
   try {
     const result = await processReferralSignup(parsed.data, signup_way)
+
+    // Trigger Webhook on Success
+    const { triggerReferralWebhook } = await import('@/lib/webhook')
+    triggerReferralWebhook({
+      event_type: 'referral_signup',
+      restaurant_name: parsed.data.restaurant_name,
+      owner_name: parsed.data.owner_name,
+      owner_phone: parsed.data.owner_phone,
+      owner_email: parsed.data.owner_email || null,
+      referral_code: parsed.data.referral_code,
+      signup_way,
+    })
+
     return NextResponse.json(result, { status: 201 })
   } catch (err) {
     if (err instanceof ReferralError) {
@@ -47,6 +60,19 @@ export async function POST(req: NextRequest) {
 
     if (isNotWiredUp) {
       console.warn('[referral/signup] DB not connected — returning success without persisting')
+
+      // Still trigger webhook even if DB is not wired up, as it's a "success" in the UI
+      const { triggerReferralWebhook } = await import('@/lib/webhook')
+      triggerReferralWebhook({
+        event_type: 'referral_signup',
+        restaurant_name: parsed.data.restaurant_name,
+        owner_name: parsed.data.owner_name,
+        owner_phone: parsed.data.owner_phone,
+        owner_email: parsed.data.owner_email || null,
+        referral_code: parsed.data.referral_code,
+        signup_way,
+      })
+
       return NextResponse.json(
         { success: true, restaurant_name: parsed.data.restaurant_name, status: 'trial' },
         { status: 201 },

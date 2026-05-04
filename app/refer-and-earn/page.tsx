@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import ReferralSignupForm from '@/components/refer-and-earn/ReferralSignupForm'
 import CopyButton from '@/components/refer-and-earn/CopyButton'
 import ReferrerRegisterForm from '@/components/refer-and-earn/ReferrerRegisterForm'
 
@@ -22,7 +21,6 @@ export default async function ReferAndEarnPage({
 }) {
   const params = await searchParams
   const refCode = typeof params?.ref === 'string' ? params.ref : ''
-  const mode = refCode ? 'self_filled' : 'referrer_filled'
   const resolvedCode = refCode || ''
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '')
 
@@ -53,7 +51,7 @@ export default async function ReferAndEarnPage({
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { value: '20%', label: 'Your commission' },
-                { value: '₹200/mo', label: 'Per referral' },
+                { value: 'NPR200/mo', label: 'Per referral' },
                 { value: '7 days', label: 'Free trial' },
                 { value: '20% off', label: 'Referee discount' },
               ].map((s) => (
@@ -106,52 +104,30 @@ export default async function ReferAndEarnPage({
           </div>
         </div>
 
-        {/* ── Row 2: How it works + Refer a restaurant form ───────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-
-          {/* How it works — 2 cols */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200/80 shadow-sm p-7 flex flex-col gap-6">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
-                How it works
-              </p>
-              <h2 className="text-xl font-semibold font-jakarta text-gray-900">
-                Two ways to refer a restaurant
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <WayCard
-                number="01"
-                title="You fill the form"
-                description="Add the restaurant directly from your dashboard. We'll WhatsApp them their login credentials instantly."
-                steps={['Fill restaurant details', 'We send WhatsApp invite', 'They log in & start trial']}
-              />
-              <WayCard
-                number="02"
-                title="They sign up themselves"
-                description="Share your referral link. They open it, fill their details, and the referral is attached automatically."
-                steps={['Share your unique link', 'They fill their own details', 'Referral is auto-attached']}
-                highlight
-              />
-            </div>
+        {/* ── Row 2: How it works ──────────────────────────────────────────── */}
+        <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm p-7 flex flex-col gap-6">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
+              How it works
+            </p>
+            <h2 className="text-xl font-semibold font-jakarta text-gray-900">
+              Two ways to refer a restaurant
+            </h2>
           </div>
-
-          {/* Refer a restaurant form (Way 1) — 1 col */}
-          <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm p-7 flex flex-col gap-5">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
-                {mode === 'referrer_filled' ? 'Way 1 — Add a restaurant' : 'Way 2 — Create your account'}
-              </p>
-              <h2 className="text-lg font-semibold font-jakarta text-gray-900">
-                {mode === 'referrer_filled' ? 'Refer a restaurant' : "You've been invited"}
-              </h2>
-              <p className="text-sm text-gray-500 font-jakarta mt-1">
-                {mode === 'referrer_filled'
-                  ? "Fill in their details and we'll notify them via WhatsApp."
-                  : 'Fill in your details to claim your 7-day free trial.'}
-              </p>
-            </div>
-            <ReferralSignupForm mode={mode} referralCode={resolvedCode} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <WayCard
+              number="01"
+              title="You fill the form"
+              description="Add the restaurant directly from your dashboard. We'll WhatsApp them their login credentials instantly."
+              steps={['Fill restaurant details', 'We send WhatsApp invite', 'They log in & start trial']}
+            />
+            <WayCard
+              number="02"
+              title="They sign up themselves"
+              description="Share your referral link. They open it, fill their details, and the referral is attached automatically."
+              steps={['Share your unique link', 'They fill their own details', 'Referral is auto-attached']}
+              highlight
+            />
           </div>
         </div>
 
@@ -167,14 +143,14 @@ export default async function ReferAndEarnPage({
                 How much can you earn?
               </h2>
               <p className="text-sm text-gray-500 font-jakarta leading-relaxed">
-                Refer 5 restaurants on the ₹1,000/mo plan and earn ₹1,000 every month — passively.
-                On the yearly plan (₹10,000) that's ₹2,000 per referral per year.
+                Refer 5 restaurants on the NPR1,000/mo plan and earn NPR1,000 every month — passively.
+                On the yearly plan (NPR10,000) that's NPR2,000 per referral per year.
               </p>
               <div className="grid grid-cols-3 gap-3 mt-2">
                 {[
-                  { refs: '1 referral', earn: '₹200/mo' },
-                  { refs: '5 referrals', earn: '₹1,000/mo' },
-                  { refs: '10 referrals', earn: '₹2,000/mo' },
+                  { refs: '1 referral', earn: 'NPR200/mo' },
+                  { refs: '5 referrals', earn: 'NPR1,000/mo' },
+                  { refs: '10 referrals', earn: 'NPR2,000/mo' },
                 ].map((item) => (
                   <div key={item.refs} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1">
                     <p className="text-xs text-gray-400 font-jakarta">{item.refs}</p>
