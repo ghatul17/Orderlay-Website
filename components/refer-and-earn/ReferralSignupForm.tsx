@@ -139,17 +139,12 @@ export default function ReferralSignupForm({ mode, referralCode }: Props) {
         />
       </Field>
 
-      {/* Referral code: locked in both ways — source of truth is URL param or session */}
+      {/* Referral code is now editable so users can type it in manually */}
       <Field label="Referral Code" error={errors.referral_code?.message}>
         <input
           {...register('referral_code')}
-          readOnly={mode === 'self_filled'}
           placeholder="e.g. OL-RAM4829"
-          className={`w-full h-11 px-4 rounded-xl border text-sm font-jakarta placeholder:text-gray-400 outline-none transition-all ${
-            mode === 'self_filled'
-              ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
-              : 'border-gray-200 bg-white text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20'
-          }`}
+          className={inputCls(!!errors.referral_code)}
         />
       </Field>
 

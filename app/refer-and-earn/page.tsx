@@ -43,7 +43,7 @@ export default async function ReferAndEarnPage({
               </h1>
               <p className="text-gray-500 font-jakarta text-[15px] md:text-[16px] leading-[1.65] max-w-[460px]">
                 Invite restaurants to Orderlay. Every referral that converts to a paid plan earns you
-                <span className="font-semibold text-gray-800"> 20% commission</span> — automatically, every cycle.
+                <span className="font-semibold text-gray-800"> 20% commission</span>.
               </p>
             </div>
 
