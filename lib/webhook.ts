@@ -2,31 +2,24 @@ const WEBHOOK_URL = 'https://n8n.globalyhub.com/webhook/355b05bc-676d-4051-b477-
 
 export async function triggerReferralWebhook(payload: Record<string, any>) {
   try {
-    // The n8n webhook is configured for GET requests.
-    // We append the payload as query parameters.
-    const params = new URLSearchParams()
-    
-    // Flatten the payload into query params
-    Object.entries(payload).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        params.append(key, String(value))
-      }
-    })
-    
-    // Add common fields
-    params.append('timestamp', new Date().toISOString())
-    params.append('source', 'website-v2')
-
-    const urlWithParams = `${WEBHOOK_URL}?${params.toString()}`
-
-    const response = await fetch(urlWithParams, {
-      method: 'GET',
+    // The n8n webhook is now configured for POST requests.
+    // We send the payload as a JSON body.
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...payload,
+        timestamp: new Date().toISOString(),
+        source: 'website-v2',
+      }),
     })
 
     if (!response.ok) {
       console.error(`[Webhook] Failed to trigger: ${response.status} ${response.statusText}`)
     } else {
-      console.log(`[Webhook] Successfully triggered (GET): ${payload.event_type}`)
+      console.log(`[Webhook] Successfully triggered (POST): ${payload.event_type}`)
     }
   } catch (error) {
     console.error('[Webhook] Error triggering webhook:', error)
