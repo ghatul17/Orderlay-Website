@@ -51,7 +51,7 @@ export default async function ReferAndEarnPage({
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { value: '20%', label: 'Your commission' },
-                { value: 'NPR200/mo', label: 'Per referral' },
+                { value: 'NPR2,000', label: 'Per referral' },
                 { value: '7 days', label: 'Free trial' },
                 { value: '20% off', label: 'Referee discount' },
               ].map((s) => (
@@ -143,14 +143,14 @@ export default async function ReferAndEarnPage({
                 How much can you earn?
               </h2>
               <p className="text-sm text-gray-500 font-jakarta leading-relaxed">
-                Refer 5 restaurants on the NPR1,000/mo plan and earn NPR1,000 every month — passively.
-                On the yearly plan (NPR10,000) that's NPR2,000 per referral per year.
+                Refer 5 restaurants on our annual plan (NPR10,000) and earn NPR10,000 — automatically.
+                That's a flat NPR2,000 commission for every single referral that subscribes.
               </p>
               <div className="grid grid-cols-3 gap-3 mt-2">
                 {[
-                  { refs: '1 referral', earn: 'NPR200/mo' },
-                  { refs: '5 referrals', earn: 'NPR1,000/mo' },
-                  { refs: '10 referrals', earn: 'NPR2,000/mo' },
+                  { refs: '1 referral', earn: 'NPR2,000' },
+                  { refs: '5 referrals', earn: 'NPR10,000' },
+                  { refs: '10 referrals', earn: 'NPR20,000' },
                 ].map((item) => (
                   <div key={item.refs} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1">
                     <p className="text-xs text-gray-400 font-jakarta">{item.refs}</p>
