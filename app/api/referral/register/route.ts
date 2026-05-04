@@ -64,11 +64,9 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Trigger Webhook ────────────────────────────────────────────────────────
-  // We trigger this after the main logic to ensure the user gets a response quickly,
-  // but before returning the response to ensure the webhook call starts.
-  // Note: triggerReferralWebhook handles its own errors.
+  // We MUST await this so Vercel doesn't kill the serverless function before the fetch completes
   const { triggerReferralWebhook } = await import('@/lib/webhook')
-  triggerReferralWebhook({
+  await triggerReferralWebhook({
     event_type: 'referrer_registration',
     name,
     phone: normalizedPhone,

@@ -38,8 +38,9 @@ export async function POST(req: NextRequest) {
     const result = await processReferralSignup(parsed.data, signup_way)
 
     // Trigger Webhook on Success
+    // We MUST await this so Vercel doesn't kill the serverless function before the fetch completes
     const { triggerReferralWebhook } = await import('@/lib/webhook')
-    triggerReferralWebhook({
+    await triggerReferralWebhook({
       event_type: 'referral_signup',
       restaurant_name: parsed.data.restaurant_name,
       referee_name: parsed.data.owner_name, // Explicitly labeled as referee
@@ -65,7 +66,7 @@ export async function POST(req: NextRequest) {
 
       // Still trigger webhook even if DB is not wired up, as it's a "success" in the UI
       const { triggerReferralWebhook } = await import('@/lib/webhook')
-      triggerReferralWebhook({
+      await triggerReferralWebhook({
         event_type: 'referral_signup',
         restaurant_name: parsed.data.restaurant_name,
         referee_name: parsed.data.owner_name,
