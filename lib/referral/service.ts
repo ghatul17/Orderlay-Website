@@ -20,6 +20,7 @@ export interface SignupResult {
   success: true
   restaurant_name: string
   status: 'trial'
+  referrer_name?: string
   // Returned on Way 2 so the client can auto-login
   temp_token?: string
 }
@@ -92,12 +93,23 @@ export async function processReferralSignup(
   // ── Step 8: Conditional — WhatsApp for Way 1, temp token for Way 2 ───────────
   if (signup_way === 'referrer_filled') {
     await sendWhatsAppCredentials({ phone: input.owner_phone, temp_password: tempPassword })
-    return { success: true, restaurant_name: input.restaurant_name, status: 'trial' }
+    return { 
+      success: true, 
+      restaurant_name: input.restaurant_name, 
+      status: 'trial',
+      referrer_name: codeRecord.owner_name,
+    }
   }
 
   // Way 2: return a short-lived token so the client can auto-login
   const temp_token = Buffer.from(`${newUser.id}:${tempPassword}`).toString('base64')
-  return { success: true, restaurant_name: input.restaurant_name, status: 'trial', temp_token }
+  return { 
+    success: true, 
+    restaurant_name: input.restaurant_name, 
+    status: 'trial', 
+    temp_token,
+    referrer_name: codeRecord.owner_name,
+  }
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

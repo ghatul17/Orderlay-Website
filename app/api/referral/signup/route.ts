@@ -42,10 +42,12 @@ export async function POST(req: NextRequest) {
     triggerReferralWebhook({
       event_type: 'referral_signup',
       restaurant_name: parsed.data.restaurant_name,
-      owner_name: parsed.data.owner_name,
+      referee_name: parsed.data.owner_name, // Explicitly labeled as referee
+      owner_name: parsed.data.owner_name,   // Keep for backward compatibility
       owner_phone: parsed.data.owner_phone,
       owner_email: parsed.data.owner_email || null,
       referral_code: parsed.data.referral_code,
+      referrer_name: result.referrer_name,  // Added referrer name
       signup_way,
     })
 
@@ -66,10 +68,12 @@ export async function POST(req: NextRequest) {
       triggerReferralWebhook({
         event_type: 'referral_signup',
         restaurant_name: parsed.data.restaurant_name,
+        referee_name: parsed.data.owner_name,
         owner_name: parsed.data.owner_name,
         owner_phone: parsed.data.owner_phone,
         owner_email: parsed.data.owner_email || null,
         referral_code: parsed.data.referral_code,
+        referrer_name: 'Unknown (DB not connected)',
         signup_way,
       })
 

@@ -29,6 +29,7 @@ export interface DBReferralCode {
   owner_id: string
   is_active: boolean
   owner_phone?: string
+  owner_name?: string
 }
 
 export interface DBReferral {
@@ -45,14 +46,14 @@ export interface DBReferral {
 export async function findReferralCode(code: string): Promise<DBReferralCode | null> {
   const { data, error } = await supabase
     .from('referral_codes')
-    .select('id, code, owner_id, is_active, users!owner_id(phone)')
+    .select('id, code, owner_id, is_active, users!owner_id(phone, name)')
     .eq('code', code)
     .single()
     
   if (error || !data) return null;
   
   // @ts-ignore
-  return { ...data, owner_phone: data.users?.phone }
+  return { ...data, owner_phone: data.users?.phone, owner_name: data.users?.name }
 }
 
 // ─── User queries ──────────────────────────────────────────────────────────────
