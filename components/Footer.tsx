@@ -24,7 +24,7 @@ const Footer = () => {
                         <li><Link href="/privacy-policy" className="hover:text-white transition-colors duration-200">Privacy Policy</Link></li>
                         <li><Link href="/terms-condition" className="hover:text-white transition-colors duration-200">Terms & Conditions</Link></li>
                         <li><Link href="/cookie-policy" className="hover:text-white transition-colors duration-200">Cookie Policy</Link></li>
-                        <li><Link target='_blank' href="https://support.orderlay.app/en" className="hover:text-white transition-colors duration-200">Support Articles</Link></li>
+                        <li><Link target='_blank' rel='noopener noreferrer' href="https://support.orderlay.app/en" className="hover:text-white transition-colors duration-200">Support Articles</Link></li>
                         <li><Link href="/contact-us" className="hover:text-white transition-colors duration-200">Contact</Link></li>
                     </ul>
                 </div>

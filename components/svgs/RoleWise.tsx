@@ -6,7 +6,7 @@ function RoleWiseImage({ image }: { image: string }) {
 
         <Image
             src={image}
-            alt=''
+            alt='Restaurant role illustration'
             height={1000}
             width={1000}
             className='w-full h-auto'

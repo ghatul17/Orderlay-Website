@@ -7,7 +7,7 @@ function RateAndShare() {
     src={'/RateAndShare.svg'}
     height={600}
     width={600}
-    alt=''
+    alt='Orderlay restaurant management illustration'
   />
   )
 }

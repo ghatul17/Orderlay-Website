@@ -7,7 +7,7 @@ function TrackOrder() {
               src={'/TrackYourOrder.svg'}
               height={600}
               width={600}
-              alt=''
+              alt='Orderlay restaurant management illustration'
               className='w-full h-auto'
             />
   )

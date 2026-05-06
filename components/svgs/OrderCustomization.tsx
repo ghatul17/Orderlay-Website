@@ -7,7 +7,7 @@ function OrderCustomization() {
          src={'/OrderCustomization.svg'}
          height={600}
          width={600}
-         alt=''
+         alt='Orderlay restaurant management illustration'
        />
   )
 }
