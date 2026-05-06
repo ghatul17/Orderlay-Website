@@ -67,12 +67,29 @@ const components: PortableTextComponents = {
         {children}
       </blockquote>
     ),
+    numbered: ({ children }) => (
+      <p className="text-base leading-7 text-gray-700 mb-4">{children}</p>
+    ),
+    cta: ({ children }) => (
+      <div className="my-8 p-6 bg-orange-50 border border-orange-200 rounded-xl text-center">
+        <p className="text-gray-800 font-medium mb-4">{children}</p>
+        <a
+          href="/contact-us"
+          className="inline-block bg-orange-500 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-orange-600 transition-colors text-sm"
+        >
+          Book a Free Demo
+        </a>
+      </div>
+    ),
   },
   list: {
     bullet: ({ children }) => (
       <ul className="list-disc list-inside space-y-1 mb-4 text-gray-700">{children}</ul>
     ),
     number: ({ children }) => (
+      <ol className="list-decimal list-inside space-y-1 mb-4 text-gray-700">{children}</ol>
+    ),
+    numbered: ({ children }) => (
       <ol className="list-decimal list-inside space-y-1 mb-4 text-gray-700">{children}</ol>
     ),
   },
