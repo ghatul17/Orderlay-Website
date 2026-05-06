@@ -3,6 +3,7 @@
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import type { PortableTextBlock } from '@portabletext/types'
 import Image from 'next/image'
+import Link from 'next/link'
 import { urlFor } from '@/sanity/lib/image'
 
 const components: PortableTextComponents = {
@@ -83,16 +84,31 @@ const components: PortableTextComponents = {
         {children}
       </code>
     ),
-    link: ({ value, children }) => (
-      <a
-        href={value?.href}
-        target={value?.blank ? '_blank' : '_self'}
-        rel={value?.blank ? 'noopener noreferrer' : undefined}
-        className="text-orange-500 underline underline-offset-2 hover:text-orange-600"
-      >
-        {children}
-      </a>
-    ),
+    link: ({ value, children }) => {
+      const href = value?.href ?? ''
+      const isInternal = href.startsWith('/') || href.includes('orderlay.io')
+      const internalHref = isInternal
+        ? href.replace(/^https?:\/\/[^/]+/, '')
+        : href
+      const cls = 'text-orange-500 underline underline-offset-2 hover:text-orange-600 cursor-pointer'
+      if (isInternal) {
+        return (
+          <Link href={internalHref} className={cls}>
+            {children}
+          </Link>
+        )
+      }
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cls}
+        >
+          {children}
+        </a>
+      )
+    },
   },
 }
 
