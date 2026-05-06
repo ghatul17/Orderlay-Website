@@ -222,12 +222,14 @@ export default async function BlogPostPage({ params }: PageProps) {
             <p className="text-orange-100 text-sm mb-5">
               See how Orderlay helps restaurants increase orders and cut costs.
             </p>
-            <Link
-              href="/contact-us#contact-form"
+            <a
+              href="https://wa.me/9779801753818?text=Hi%2C%20I%27d%20like%20to%20book%20a%20demo%20for%20Orderlay%20restaurant%20management%20software."
+              target="_blank"
+              rel="noopener noreferrer"
               className="block bg-white text-orange-500 font-semibold py-2.5 rounded-xl hover:bg-orange-50 transition-colors text-sm"
             >
               Book a Free Demo
-            </Link>
+            </a>
           </div>
 
           {/* Most Popular */}

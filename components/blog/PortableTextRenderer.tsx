@@ -74,7 +74,7 @@ const components: PortableTextComponents = {
       <div className="my-8 p-6 bg-orange-50 border border-orange-200 rounded-xl text-center">
         <p className="text-gray-800 font-medium mb-4">{children}</p>
         <a
-          href="/contact-us#contact-form"
+          href="https://wa.me/9779801753818?text=Hi%2C%20I%27d%20like%20to%20book%20a%20demo%20for%20Orderlay%20restaurant%20management%20software."
           className="inline-block bg-orange-500 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-orange-600 transition-colors text-sm"
         >
           Book a Free Demo
