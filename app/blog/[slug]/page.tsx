@@ -223,7 +223,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               See how Orderlay helps restaurants increase orders and cut costs.
             </p>
             <Link
-              href="/contact-us"
+              href="/contact-us#contact-form"
               className="block bg-white text-orange-500 font-semibold py-2.5 rounded-xl hover:bg-orange-50 transition-colors text-sm"
             >
               Book a Free Demo

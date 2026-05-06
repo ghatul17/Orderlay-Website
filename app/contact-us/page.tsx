@@ -47,7 +47,7 @@ function page() {
 
             {/* derails */}
             <div className='mt-[44px] sm:mt-[50px] md:mt-[60px] lg:mt-[80px] xl:mt-[100px] 2xl:mt-[120px] 3xl:mt-[140px] flex flex-col gap-[24px] sm:gap-[30px] md:gap-[40px] lg:gap-[45px] xl:gap-[50px] 2xl:gap-[55px] 3xl:gap-[66px]'>
-                <div className='flex items-start gap-[24px] lg:gap-[31px]'> <div className=' h-[18px] w-[18px] md:h-[24px] md:w-[24px] lg:h-[30px] lg:w-[30px] text-white '><PhoneIcon/></div> <Link href={'tel:9801753818'} className='text-white text-xs sm:text-base md:text-lg lg:text-xl text-[600] font-jakarta'>+977 9801753818</Link></div>
+                <div className='flex items-start gap-[24px] lg:gap-[31px]'> <div className=' h-[18px] w-[18px] md:h-[24px] md:w-[24px] lg:h-[30px] lg:w-[30px] text-white '><PhoneIcon/></div> <Link href={'tel:+9779801753818'} className='text-white text-xs sm:text-base md:text-lg lg:text-xl text-[600] font-jakarta'>+977 9801753818</Link></div>
                 <div className='flex items-start gap-[24px] lg:gap-[31px]'> <div className=' h-[18px] w-[18px] md:h-[24px] md:w-[24px] lg:h-[30px] lg:w-[30px] '><EmailIcon/></div> <Link href={'mailto:hello@orderlay.app'} className='text-white text-xs sm:text-base md:text-lg lg:text-xl  text-[600] font-jakarta'>hello@orderlay.app</Link></div>
                 <div className='flex items-start gap-[24px] lg:gap-[31px]'> <div className=' h-[18px] w-[18px] md:h-[24px] md:w-[24px] lg:h-[30px] lg:w-[30px] '><LocationIcon/></div> <p className='text-white text-xs sm:text-base md:text-lg lg:text-xl  text-[600] font-jakarta'>11-17 York Street, <br/>
                 Sydney NSW 2000</p></div>
@@ -65,7 +65,7 @@ function page() {
             <div className="absolute  aspect-square h-[210px] sm:h-[220px] md:h-[230px] lg:h-[250px] xl:h-[280px] 2xl:[310px] 3xl:h-[330px] bg-circle rounded-full right-0 bottom-0 translate-x-1/2 translate-y-1/2"></div>
 
            </div>
-           <div className='w-full md:w-[53%] pt-[20px]  md:pt-[14px] lg:pt-[16px] xl:pt-[18px] 2xl:pt-[20px] 3xl:pt-[23px] lg:pr-[20px] px-[10px] sm:pl-[16px] md:pl-[20px] lg:pl-[25px] xl:pl-[28px] 2xl:pl-[30px] 3xl:pl-[36px] pb-[53px] md:pb-[65px] lg:pb-[75px] 2xl:pb-[80px] 3xl:pb-[91px]'>
+           <div id="contact-form" className='w-full md:w-[53%] pt-[20px]  md:pt-[14px] lg:pt-[16px] xl:pt-[18px] 2xl:pt-[20px] 3xl:pt-[23px] lg:pr-[20px] px-[10px] sm:pl-[16px] md:pl-[20px] lg:pl-[25px] xl:pl-[28px] 2xl:pl-[30px] 3xl:pl-[36px] pb-[53px] md:pb-[65px] lg:pb-[75px] 2xl:pb-[80px] 3xl:pb-[91px]'>
                <ReactQueryProvider>
                <ContactForm/>
                </ReactQueryProvider>

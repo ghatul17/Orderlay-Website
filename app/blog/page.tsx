@@ -80,7 +80,7 @@ export default async function BlogPage({
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/contact-us"
+                href="/contact-us#contact-form"
                 className="bg-white text-primary font-semibold text-[14px] h-12 px-6 inline-flex items-center justify-center rounded-xl hover:bg-orange-50 transition-colors duration-200"
               >
                 Book a Demo
