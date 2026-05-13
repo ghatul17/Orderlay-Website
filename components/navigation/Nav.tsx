@@ -64,9 +64,6 @@ const Navbar = () => {
                      Restaurant Goer
                   </Link>
               }
-              <Link href="/features/restaurant-management-system-nepal" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200">
-                Features
-              </Link>
               <Link href="/refer-and-earn" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200">
                 Refer & Earn
               </Link>
@@ -167,13 +164,6 @@ const Navbar = () => {
                          Restaurant Goer
                       </Link>
                   }
-                  <Link
-                    onClick={() => setIsMenuOpen(false)}
-                    href="/features/restaurant-management-system-nepal"
-                    className="block text-xl sm:text-base font-medium text-[#1E293B] hover:text-primary transition-colors duration-200"
-                  >
-                    Features
-                  </Link>
                   <Link
                     onClick={() => setIsMenuOpen(false)}
                     href="/refer-and-earn"
