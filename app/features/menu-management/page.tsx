@@ -23,6 +23,8 @@ export default function MenuManagementPage() {
   return (
     <FeaturePageTemplate
       badge="Menu Management"
+      badgeHighlight="Instant Updates"
+      highlight={{ number: "∞", label: "Menu Items", sublabel: "add unlimited items" }}
       accentColor="#F59E0B"
       icon={<UtensilsCrossed size={22} />}
       h1="Digital Menu Management for Restaurants"

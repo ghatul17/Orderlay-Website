@@ -23,6 +23,8 @@ export default function SalesDashboardPage() {
   return (
     <FeaturePageTemplate
       badge="Sales Dashboard"
+      badgeHighlight="Real-Time"
+      highlight={{ number: "3×", label: "Faster Decisions", sublabel: "with live sales data" }}
       accentColor="#F97316"
       icon={<BarChart3 size={22} />}
       h1="Real-Time Sales Dashboard & Reports for Your Restaurant"

@@ -23,6 +23,8 @@ export default function TableManagementPage() {
   return (
     <FeaturePageTemplate
       badge="Table Management"
+      badgeHighlight="Live Status"
+      highlight={{ number: "40%", label: "Better Turnover", sublabel: "with real-time table tracking" }}
       accentColor="#6366F1"
       icon={<LayoutGrid size={22} />}
       h1="Restaurant Table Management Made Simple"

@@ -23,6 +23,8 @@ export default function QrMenuPage() {
   return (
     <FeaturePageTemplate
       badge="QR Menu"
+      badgeHighlight="No App Needed"
+      highlight={{ number: "0₹", label: "Printing Cost", sublabel: "update menus instantly" }}
       accentColor="#8B5CF6"
       icon={<QrCode size={22} />}
       h1="QR Menu & Digital Menu for Your Restaurant"

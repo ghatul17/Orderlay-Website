@@ -23,6 +23,8 @@ export default function StaffManagementPage() {
   return (
     <FeaturePageTemplate
       badge="Staff Management"
+      badgeHighlight="Role-Based"
+      highlight={{ number: "100%", label: "Access Control", sublabel: "per role permissions" }}
       accentColor="#EC4899"
       icon={<Users size={22} />}
       h1="Restaurant Staff Management & Role-Based Access"

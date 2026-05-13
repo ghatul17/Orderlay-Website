@@ -23,6 +23,8 @@ export default function OrderManagementPage() {
   return (
     <FeaturePageTemplate
       badge="Order Management"
+      badgeHighlight="Zero Missed Orders"
+      highlight={{ number: "0", label: "Missed Orders", sublabel: "with real-time tracking" }}
       accentColor="#0EA5E9"
       icon={<ClipboardList size={22} />}
       h1="Real-Time Order Management for Restaurants"

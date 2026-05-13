@@ -23,6 +23,8 @@ export default function CustomerReviewsPage() {
   return (
     <FeaturePageTemplate
       badge="Customer Reviews"
+      badgeHighlight="Build Trust"
+      highlight={{ number: "5★", label: "Better Ratings", sublabel: "act on real feedback" }}
       accentColor="#EF4444"
       icon={<Star size={22} />}
       h1="Customer Reviews & Ratings for Your Restaurant"
