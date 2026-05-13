@@ -76,13 +76,13 @@ function HeroSection() {
           </p>
           <div className="flex flex-col xs:flex-row items-center justify-center gap-3">
             <Link
-              href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20start%20a%20free%20trial"
+              href="https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+start+a+free+trial+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0"
               className="w-full xs:w-auto px-7 py-3.5 bg-[#F97316] text-white font-jakarta font-semibold text-[15px] rounded-xl hover:bg-[#ea6a0a] transition-colors duration-200"
             >
               Start Free Trial
             </Link>
             <Link
-              href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20book%20a%20free%20demo"
+              href="https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+book+a+demo+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0"
               className="w-full xs:w-auto px-7 py-3.5 border border-[#E9EAE9] bg-white text-[#1F2937] font-jakarta font-semibold text-[15px] rounded-xl hover:bg-gray-50 transition-colors duration-200"
             >
               Book a Free Demo
@@ -130,13 +130,13 @@ function WhyOrderlaySection() {
             </p>
             <div className="flex flex-col xs:flex-row gap-3">
               <Link
-                href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20start%20a%20free%20trial"
+                href="https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+start+a+free+trial+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0"
                 className="px-6 py-3 bg-[#F97316] text-white font-jakarta font-semibold text-[14px] rounded-xl hover:bg-[#ea6a0a] transition-colors duration-200 text-center"
               >
                 Start Your 7-Day Free Trial
               </Link>
               <Link
-                href="https://wa.me/9779851044071"
+                href="https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+know+more+about+Orderlay.&type=phone_number&app_absent=0"
                 className="px-6 py-3 border border-[#E9EAE9] text-[#1F2937] font-jakarta font-semibold text-[14px] rounded-xl hover:bg-gray-50 transition-colors duration-200 text-center"
               >
                 Talk to Us on WhatsApp
@@ -228,19 +228,19 @@ function FinalCTASection() {
         </p>
         <div className="flex flex-col xs:flex-row items-center justify-center gap-3">
           <Link
-            href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20start%20a%20free%20trial"
+            href="https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+start+a+free+trial+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0"
             className="w-full xs:w-auto px-7 py-3.5 bg-[#F97316] text-white font-jakarta font-semibold text-[15px] rounded-xl hover:bg-[#ea6a0a] transition-colors duration-200"
           >
             Start Free Trial
           </Link>
           <Link
-            href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20book%20a%20free%20demo"
+            href="https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+book+a+demo+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0"
             className="w-full xs:w-auto px-7 py-3.5 border border-white/20 text-white font-jakarta font-semibold text-[15px] rounded-xl hover:bg-white/10 transition-colors duration-200"
           >
             Book a Free Demo
           </Link>
           <Link
-            href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20create%20a%20free%20QR%20menu"
+            href="https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+know+more+about+Orderlay.&type=phone_number&app_absent=0?text=Hi%20I%20want%20to%20create%20a%20free%20QR%20menu"
             className="w-full xs:w-auto px-7 py-3.5 border border-white/20 text-white font-jakarta font-semibold text-[15px] rounded-xl hover:bg-white/10 transition-colors duration-200"
           >
             Create Free QR Menu

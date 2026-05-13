@@ -239,7 +239,7 @@ export default function FeatureBentoGrid() {
               accent="#F97316"
               title="Fast, Accurate POS Billing"
               description="Create bills during rush hours without missed items, wrong discounts, or calculation errors. Built for dine-in restaurants, cafes, takeaway counters, fast-food outlets, and cloud kitchens."
-              cta={{ label: "Try POS Billing Free", href: "https://wa.me/9779851044071" }}
+              cta={{ label: "Try POS Billing Free", href: "https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+book+a+demo+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0" }}
               visual={<BillingVisual />}
             />
           </div>
@@ -253,7 +253,7 @@ export default function FeatureBentoGrid() {
               accent="#8B5CF6"
               title="QR Menu & Digital Menu"
               description="Let customers scan, view, and order from a clean digital menu. Update items, prices, and availability instantly — no printing needed."
-              cta={{ label: "Create Your QR Menu", href: "https://wa.me/9779851044071" }}
+              cta={{ label: "Create Your QR Menu", href: "https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+book+a+demo+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0" }}
               visual={<QrVisual />}
             />
           </div>

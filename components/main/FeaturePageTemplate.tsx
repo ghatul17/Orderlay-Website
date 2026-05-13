@@ -2,19 +2,12 @@ import React from "react";
 import Link from "next/link";
 import FaqSection from "@/components/main/Faqs";
 
-interface Benefit {
-  text: string;
-}
+const WA_TRIAL = "https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+start+a+free+trial+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0";
+const WA_DEMO  = "https://api.whatsapp.com/send/?phone=9779801753818&text=Hi%2C+I%27d+like+to+book+a+demo+for+Orderlay+restaurant+management+software.&type=phone_number&app_absent=0";
 
-interface FAQ {
-  question: string;
-  answer: string;
-}
-
-interface RelatedFeature {
-  label: string;
-  href: string;
-}
+interface Benefit { text: string }
+interface FAQ { question: string; answer: string }
+interface RelatedFeature { label: string; href: string }
 
 interface FeaturePageTemplateProps {
   badge: string;
@@ -62,15 +55,18 @@ export default function FeaturePageTemplate({
               </p>
               <div className="flex flex-col xs:flex-row gap-3">
                 <Link
-                  href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20start%20a%20free%20trial"
-                  className="px-6 py-3.5 text-white font-jakarta font-semibold text-[14px] rounded-xl transition-colors duration-200 text-center"
-                  style={{ background: accentColor }}
+                  href={WA_TRIAL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3.5 bg-[#F97316] hover:bg-[#ea6a0a] text-white font-jakarta font-semibold text-[14px] rounded-xl transition-colors duration-200 text-center"
                 >
                   Start Free Trial
                 </Link>
                 <Link
-                  href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20book%20a%20free%20demo"
-                  className="px-6 py-3.5 border border-[#E9EAE9] bg-white text-[#1F2937] font-jakarta font-semibold text-[14px] rounded-xl hover:bg-gray-50 transition-colors duration-200 text-center"
+                  href={WA_DEMO}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3.5 border border-[#E9EAE9] bg-white text-[#1F2937] font-jakarta font-semibold text-[14px] rounded-xl hover:border-[#F97316]/40 hover:text-[#F97316] transition-colors duration-200 text-center"
                 >
                   Book a Free Demo
                 </Link>
@@ -83,7 +79,7 @@ export default function FeaturePageTemplate({
         </div>
       </section>
 
-      {/* Benefits */}
+      {/* Benefits + How It Works */}
       <section className="w-full py-8 md:py-14 bg-[#FAFAFA]">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -97,20 +93,8 @@ export default function FeaturePageTemplate({
               <ul className="flex flex-col gap-3">
                 {benefits.map((b) => (
                   <li key={b.text} className="flex items-start gap-3">
-                    <span
-                      className="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center shrink-0"
-                      style={{ background: `${accentColor}18` }}
-                    >
-                      <svg
-                        width="10"
-                        height="10"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke={accentColor}
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
+                    <span className="mt-0.5 w-5 h-5 rounded-full bg-[#F97316]/10 flex items-center justify-center shrink-0">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                     </span>
@@ -120,17 +104,13 @@ export default function FeaturePageTemplate({
               </ul>
             </div>
 
-            {/* How it works */}
             <div className="flex flex-col gap-5">
               <h2 className="font-jakarta text-[24px] md:text-[30px] text-[#1F2937] font-semibold leading-[1.3]">
                 How It Works
               </h2>
               {howItWorks.map((step, i) => (
                 <div key={i} className="flex gap-4">
-                  <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-white font-jakarta font-bold text-[13px]"
-                    style={{ background: accentColor }}
-                  >
+                  <div className="w-8 h-8 rounded-full bg-[#F97316] flex items-center justify-center shrink-0 text-white font-jakarta font-bold text-[13px]">
                     {i + 1}
                   </div>
                   <div>
@@ -172,9 +152,9 @@ export default function FeaturePageTemplate({
         <div className="container text-center">
           <div
             className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-5"
-            style={{ background: `${accentColor}20` }}
+            style={{ background: `${accentColor}25`, color: accentColor }}
           >
-            <span style={{ color: accentColor }}>{icon}</span>
+            {icon}
           </div>
           <h2 className="font-jakarta text-[24px] md:text-[32px] text-white font-semibold leading-[1.25] mb-4">
             Ready to get started?
@@ -184,14 +164,17 @@ export default function FeaturePageTemplate({
           </p>
           <div className="flex flex-col xs:flex-row items-center justify-center gap-3">
             <Link
-              href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20start%20a%20free%20trial"
-              className="w-full xs:w-auto px-7 py-3.5 text-white font-jakarta font-semibold text-[15px] rounded-xl transition-colors duration-200"
-              style={{ background: accentColor }}
+              href={WA_TRIAL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full xs:w-auto px-7 py-3.5 bg-[#F97316] hover:bg-[#ea6a0a] text-white font-jakarta font-semibold text-[15px] rounded-xl transition-colors duration-200"
             >
               Start Free Trial
             </Link>
             <Link
-              href="https://wa.me/9779851044071?text=Hi%20I%20want%20to%20book%20a%20free%20demo"
+              href={WA_DEMO}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full xs:w-auto px-7 py-3.5 border border-white/20 text-white font-jakarta font-semibold text-[15px] rounded-xl hover:bg-white/10 transition-colors duration-200"
             >
               Book a Free Demo
