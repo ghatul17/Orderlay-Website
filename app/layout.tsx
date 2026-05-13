@@ -103,6 +103,7 @@ export default function RootLayout({
               gtag('js', new Date());
               gtag('config', 'G-GK7Z21PPBJ');
               gtag('config', 'AW-18147770554');
+              gtag('event', 'manual_event_PAGE_VIEW');
             `,
           }}
         />
