@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Link from "next/link";
 import FaqSection from "@/components/main/Faqs";
@@ -81,17 +80,7 @@ export default function FeaturePageTemplate({
               href={WA_TRIAL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border-2 font-jakarta font-semibold text-[14px] rounded-xl transition-all duration-200 hover:text-white"
-              style={{
-                borderColor: accentColor,
-                color: accentColor,
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = accentColor;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-              }}
+              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#F97316] text-[#F97316] hover:bg-[#F97316] hover:text-white font-jakarta font-semibold text-[14px] rounded-xl transition-all duration-200"
             >
               Start To Manage — Free
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
