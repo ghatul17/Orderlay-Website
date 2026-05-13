@@ -104,6 +104,16 @@ export default function RootLayout({
               gtag('config', 'G-GK7Z21PPBJ');
               gtag('config', 'AW-18147770554');
               gtag('event', 'manual_event_PAGE_VIEW');
+              window.gtagSendEvent = function(url) {
+                var callback = function() {
+                  if (typeof url === 'string') { window.location = url; }
+                };
+                gtag('event', 'manual_event_PAGE_VIEW', {
+                  'event_callback': callback,
+                  'event_timeout': 2000,
+                });
+                return false;
+              };
             `,
           }}
         />
