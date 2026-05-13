@@ -79,48 +79,64 @@ export default function FeaturePageTemplate({
         </div>
       </section>
 
-      {/* Benefits + How It Works */}
+      {/* Benefits + How It Works — Bento */}
       <section className="w-full py-8 md:py-14 bg-[#FAFAFA]">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            <div>
-              <h2 className="font-jakarta text-[24px] md:text-[30px] text-[#1F2937] font-semibold leading-[1.3] mb-3">
-                What You Get
-              </h2>
-              <p className="text-[#557087] font-jakarta text-[15px] leading-[1.65] mb-6">
-                Every feature is built around how real restaurants in Nepal operate day-to-day.
-              </p>
-              <ul className="flex flex-col gap-3">
-                {benefits.map((b) => (
-                  <li key={b.text} className="flex items-start gap-3">
-                    <span className="mt-0.5 w-5 h-5 rounded-full bg-[#F97316]/10 flex items-center justify-center shrink-0">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    </span>
-                    <span className="text-[#374151] font-jakarta text-[14px] leading-[1.6]">{b.text}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            <div className="flex flex-col gap-5">
-              <h2 className="font-jakarta text-[24px] md:text-[30px] text-[#1F2937] font-semibold leading-[1.3]">
-                How It Works
-              </h2>
-              {howItWorks.map((step, i) => (
-                <div key={i} className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-[#F97316] flex items-center justify-center shrink-0 text-white font-jakarta font-bold text-[13px]">
-                    {i + 1}
-                  </div>
-                  <div>
-                    <p className="text-[#1F2937] font-jakarta font-semibold text-[15px] mb-0.5">{step.title}</p>
-                    <p className="text-[#557087] font-jakarta text-[13px] leading-[1.6]">{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Section label */}
+          <div className="flex flex-col md:items-center gap-2 mb-8 md:mb-10">
+            <h2 className="font-jakarta text-[26px] md:text-[32px] text-[#1F2937] font-semibold leading-[1.25] tracking-[-0.3px] text-left md:text-center">
+              What You Get &amp; How It Works
+            </h2>
+            <p className="text-[#557087] font-jakarta text-[15px] leading-[1.6] max-w-[520px] text-left md:text-center">
+              Every feature is built around how real restaurants in Nepal operate day-to-day.
+            </p>
           </div>
+
+          {/* Benefits bento grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+
+            {/* First benefit — wide card */}
+            {benefits[0] && (
+              <div className="sm:col-span-2 group relative bg-white rounded-2xl border border-[#E9EAE9] p-6 hover:shadow-md hover:-translate-y-[2px] transition-all duration-300 overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#F97316]" />
+                <div className="w-9 h-9 rounded-xl bg-[#F97316]/10 flex items-center justify-center mb-4">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <p className="text-[#1F2937] font-jakarta font-semibold text-[15px] leading-[1.5]">{benefits[0].text}</p>
+              </div>
+            )}
+
+            {/* Remaining benefits — 1-col cards */}
+            {benefits.slice(1).map((b) => (
+              <div key={b.text} className="group relative bg-white rounded-2xl border border-[#E9EAE9] p-6 hover:shadow-md hover:-translate-y-[2px] transition-all duration-300 overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#F97316]" />
+                <div className="w-9 h-9 rounded-xl bg-[#F97316]/10 flex items-center justify-center mb-4">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <p className="text-[#1F2937] font-jakarta font-semibold text-[15px] leading-[1.5]">{b.text}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* How It Works — step cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {howItWorks.map((step, i) => (
+              <div key={i} className="group relative bg-[#1F2937] rounded-2xl border border-[#1F2937] p-6 hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300 overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl bg-[#F97316]" />
+                <div className="w-9 h-9 rounded-xl bg-[#F97316] flex items-center justify-center mb-4 font-jakarta font-bold text-white text-[14px]">
+                  {i + 1}
+                </div>
+                <p className="text-white font-jakarta font-semibold text-[15px] mb-2 leading-[1.4]">{step.title}</p>
+                <p className="text-[#9CA3AF] font-jakarta text-[13px] leading-[1.65]">{step.description}</p>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
