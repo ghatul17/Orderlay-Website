@@ -28,19 +28,19 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Orderlay — Restaurant Management Software",
+    default: "Orderlay — Restaurant Management & Ordering Software",
     template: "%s — Orderlay",
   },
   description:
-    "Orderlay helps restaurants manage orders, tables, and staff effortlessly. QR-based ordering, real-time dashboards, and role-based access for every team member.",
+    "Orderlay helps restaurants manage orders, tables, and staff effortlessly. QR-based ordering, real-time dashboards, and role-based access for your team.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Orderlay — Restaurant Management Software",
+    title: "Orderlay — Restaurant Management & Ordering Software",
     description:
-      "Orderlay helps restaurants manage orders, tables, and staff effortlessly. QR-based ordering, real-time dashboards, and role-based access for every team member.",
+      "Orderlay helps restaurants manage orders, tables, and staff effortlessly. QR-based ordering, real-time dashboards, and role-based access for your team.",
     images: [
       {
         url: "/og-image.png",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Orderlay — Restaurant Management Software",
+    title: "Orderlay — Restaurant Management & Ordering Software",
     description:
       "Orderlay helps restaurants manage orders, tables, and staff effortlessly.",
     images: ["/og-image.png"],

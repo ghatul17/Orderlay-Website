@@ -64,6 +64,9 @@ const Navbar = () => {
                      Restaurant Goer
                   </Link>
               }
+              <Link href="/features/restaurant-management-system-nepal" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200">
+                Features
+              </Link>
               <Link href="/refer-and-earn" className="text-[#1E293B] text-center font-medium text-[16px] leading-[24px] font-jakarta hover:text-primary transition-colors duration-200">
                 Refer & Earn
               </Link>
@@ -104,12 +107,14 @@ const Navbar = () => {
                 )}
               </div>
 
-              <Link
-                href={['/','/restaurant'].includes(pathname) ? `${pathname}#join` : '/#join'}
+              <a
+                href="https://wa.me/9779801753818?text=Hi%2C%20I%27d%20like%20to%20book%20a%20demo%20for%20Orderlay%20restaurant%20management%20software."
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 px-5 justify-center items-center rounded-xl bg-primary text-white font-medium text-[14px] font-jakarta hover:opacity-90 transition-opacity duration-200"
               >
-                Join Us
-              </Link>
+                Book a Demo
+              </a>
 
             </div>
 
@@ -164,6 +169,13 @@ const Navbar = () => {
                   }
                   <Link
                     onClick={() => setIsMenuOpen(false)}
+                    href="/features/restaurant-management-system-nepal"
+                    className="block text-xl sm:text-base font-medium text-[#1E293B] hover:text-primary transition-colors duration-200"
+                  >
+                    Features
+                  </Link>
+                  <Link
+                    onClick={() => setIsMenuOpen(false)}
                     href="/refer-and-earn"
                     className="block text-xl sm:text-base font-medium text-[#1E293B] hover:text-primary transition-colors duration-200"
                   >
@@ -191,12 +203,15 @@ const Navbar = () => {
                     </div>
                   </div>
                   <div className="">
-                    <button
-                      onClick={() => { setIsMenuOpen(false), router.push('/#join') }}
-                      className="w-full max-w-[200px] h-12 capitalize bg-primary text-white font-medium rounded-xl text-[14px] font-jakarta hover:opacity-90 transition-opacity duration-200 cursor-pointer"
+                    <a
+                      href="https://wa.me/9779801753818?text=Hi%2C%20I%27d%20like%20to%20book%20a%20demo%20for%20Orderlay%20restaurant%20management%20software."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="inline-flex w-full max-w-[200px] h-12 items-center justify-center capitalize bg-primary text-white font-medium rounded-xl text-[14px] font-jakarta hover:opacity-90 transition-opacity duration-200"
                     >
-                      Join Us
-                    </button>
+                      Book a Demo
+                    </a>
                   </div>
                 </div>
               </div>
