@@ -11,10 +11,11 @@ Orderlay is a SaaS platform that helps restaurants manage tables, orders, staff 
 - Mobile apps for iOS and Android
 
 ## Pages
-- [Homepage](https://orderlay.com): Restaurant management features overview
-- [For Diners](https://orderlay.com/restaurant-goer): QR ordering experience for customers
-- [Contact](https://orderlay.com/contact-us): Support and sales — hello@orderlay.app, +977 9801753818
+- [Homepage](https://www.orderlay.app): Restaurant management features overview
+- [For Diners](https://www.orderlay.app/restaurant-goer): QR ordering experience for customers
+- [Blog](https://www.orderlay.app/blog): Restaurant operations, marketing, and growth insights
+- [Contact](https://www.orderlay.app/contact-us): Support and sales — hello@orderlay.app, +977 9801753818
 
 ## Company
-- Website: https://orderlay.com
+- Website: https://www.orderlay.app
 - Support: https://support.orderlay.app/en
