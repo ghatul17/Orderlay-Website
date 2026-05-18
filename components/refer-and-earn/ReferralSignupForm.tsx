@@ -79,7 +79,6 @@ export default function ReferralSignupForm({ mode, referralCode }: Props) {
               mode === 'referrer_filled'
                 ? "They'll receive a WhatsApp with login details."
                 : 'Your 7-day free trial has started.',
-              '20% off automatically applied at checkout.',
               'No credit card required.',
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-2.5">
@@ -163,7 +162,7 @@ export default function ReferralSignupForm({ mode, referralCode }: Props) {
           ? 'Adding…'
           : mode === 'referrer_filled'
           ? 'Add Restaurant & Notify via WhatsApp'
-          : 'Claim 20% Off & Start Free Trial'}
+          : 'Start Free Trial'}
       </button>
     </form>
   )

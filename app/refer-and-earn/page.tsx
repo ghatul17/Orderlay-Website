@@ -48,12 +48,11 @@ export default async function ReferAndEarnPage({
             </div>
 
             {/* Mini stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               {[
                 { value: '20%', label: 'Your commission' },
                 { value: 'NPR2,000', label: 'Per referral' },
                 { value: '7 days', label: 'Free trial' },
-                { value: '20% off', label: 'Referee discount' },
               ].map((s) => (
                 <div key={s.label} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1">
                   <p className="text-xl font-bold font-jakarta text-gray-900">{s.value}</p>
@@ -177,7 +176,6 @@ export default async function ReferAndEarnPage({
                 'Self-referrals are blocked automatically.',
                 'Referral code must be active at signup.',
                 'One referral per phone number.',
-                '20% discount auto-applied for your referee.',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5">
                   <span className="mt-0.5 w-4 h-4 shrink-0 rounded-full bg-orange-50 flex items-center justify-center">
