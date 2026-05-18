@@ -1,7 +1,16 @@
+import { SITE_URL } from '@/constants/site'
+
 const WEBHOOK_URL = 'https://n8n.globalyhub.com/webhook/355b05bc-676d-4051-b477-e7919a6ac6d0'
 
 export async function triggerReferralWebhook(payload: Record<string, any>) {
   try {
+    const siteUrl = SITE_URL.replace(/\/$/, '')
+    const referralLinkPayload: Record<string, any> = {}
+
+    if (payload.referral_code) {
+      referralLinkPayload.referral_link = `${siteUrl}/signup?ref=${payload.referral_code}`
+    }
+
     // The n8n webhook is now configured for POST requests.
     // We send the payload as a JSON body.
     const response = await fetch(WEBHOOK_URL, {
@@ -11,6 +20,7 @@ export async function triggerReferralWebhook(payload: Record<string, any>) {
       },
       body: JSON.stringify({
         ...payload,
+        ...referralLinkPayload,
         timestamp: new Date().toISOString(),
         source: 'website-v2',
       }),
